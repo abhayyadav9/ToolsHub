@@ -1,0 +1,9 @@
+{
+  "name": "ToolsHub",
+  "short_name": "ToolsHub",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0ea5e9",
+  "description": "Free online PDF tools including PDF to Word, merge, and compress."
+}

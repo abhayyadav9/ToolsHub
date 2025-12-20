@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://toolshub.me/sitemap.xml
+
+# Crawl-delay for respectful crawling
+Crawl-delay: 1
+
+# Disallow temp and private directories
+Disallow: /api/
+Disallow: /temp/
+Disallow: /uploads/
+Disallow: /downloads/
