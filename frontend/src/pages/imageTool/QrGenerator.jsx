@@ -50,6 +50,28 @@ const qrCode = new QRCodeStyling({
   imageOptions: { crossOrigin: "anonymous", margin: 10 },
 });
 
+
+const generateTextLogo = (text, color, bg, size = 300) => {
+  const canvas = document.createElement("canvas");
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext("2d");
+
+  // Background
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, size, size);
+
+  // Text
+  ctx.fillStyle = color;
+  ctx.font = `bold ${size / 2}px Inter, Arial`;
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(text.toUpperCase(), size / 2, size / 2);
+
+  return canvas.toDataURL("image/png");
+};
+
+
 export default function QrGenerator() {
   const ref = useRef(null);
   const [activeTab, setActiveTab] = useState("content"); // content | style | logo
@@ -72,21 +94,56 @@ export default function QrGenerator() {
   const [logoBrightness, setLogoBrightness] = useState(100);
   const [logoContrast, setLogoContrast] = useState(100);
 
+
+  // Logo mode
+const [logoMode, setLogoMode] = useState("image"); // image | text
+
+// Text logo state
+const [logoText, setLogoText] = useState("LOGO");
+const [textColor, setTextColor] = useState("#000000");
+const [textBg, setTextBg] = useState("#ffffff");
+const [fontSize, setFontSize] = useState(120);
+
+
   // Initialize QR
   useEffect(() => {
     qrCode.append(ref.current);
   }, []);
 
   // Handle Logo Processing (Debounced effect could be better, but this works for simple usage)
-  useEffect(() => {
-    if (logoRaw) {
-      processLogoImage(logoRaw, logoBrightness, logoContrast).then(
-        setLogoProcessed
-      );
-    } else {
-      setLogoProcessed(null);
-    }
-  }, [logoRaw, logoBrightness, logoContrast]);
+ 
+useEffect(() => {
+  if (logoMode === "image" && logoRaw) {
+    processLogoImage(logoRaw, logoBrightness, logoContrast).then(
+      setLogoProcessed
+    );
+  }
+
+  if (logoMode === "text") {
+    const textImage = generateTextLogo(
+      logoText,
+      textColor,
+      textBg
+    );
+    setLogoProcessed(textImage);
+  }
+
+  if (!logoRaw && logoMode === "image") {
+    setLogoProcessed(null);
+  }
+}, [
+  logoMode,
+  logoRaw,
+  logoText,
+  textColor,
+  textBg,
+  logoBrightness,
+  logoContrast,
+]);
+
+
+
+
 
   // Update QR Code appearance
   useEffect(() => {
@@ -422,70 +479,121 @@ export default function QrGenerator() {
           )}
 
           {/* LOGO TAB */}
+
           {activeTab === "logo" && (
-            <div className="space-y-6">
-              <label className="block w-full border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-all rounded-xl p-6 text-center cursor-pointer">
-                <Upload className="mx-auto text-gray-400 mb-2" size={24} />
-                <span className="text-sm font-medium text-gray-600">
-                  Upload Logo
-                </span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  hidden
-                  onChange={onLogoUpload}
-                />
-              </label>
+  <div className="space-y-6">
 
-              {logoRaw && (
-                <>
-                  <div className="space-y-4 pt-4 border-t border-gray-100">
-                    <label className="text-xs font-bold text-gray-400 uppercase tracking-wider block">
-                      Logo Settings
-                    </label>
+    {/* MODE TOGGLE */}
+    <div className="flex gap-2">
+      <button
+        onClick={() => setLogoMode("image")}
+        className={`flex-1 py-2 rounded-lg text-sm font-semibold ${
+          logoMode === "image"
+            ? "bg-blue-600 text-white"
+            : "bg-gray-100 text-gray-600"
+        }`}
+      >
+        Image Logo
+      </button>
+      <button
+        onClick={() => setLogoMode("text")}
+        className={`flex-1 py-2 rounded-lg text-sm font-semibold ${
+          logoMode === "text"
+            ? "bg-blue-600 text-white"
+            : "bg-gray-100 text-gray-600"
+        }`}
+      >
+        Text Logo
+      </button>
+    </div>
 
-                    <RangeSlider
-                      label="Size"
-                      value={Math.round(logoSize * 100)}
-                      min={10}
-                      max={60}
-                      onChange={(e) =>
-                        setLogoSize(Number(e.target.value) / 100)
-                      }
-                      unit="%"
-                    />
-                    <RangeSlider
-                      label="Brightness"
-                      value={logoBrightness}
-                      min={0}
-                      max={200}
-                      onChange={(e) =>
-                        setLogoBrightness(Number(e.target.value))
-                      }
-                      unit="%"
-                    />
-                    <RangeSlider
-                      label="Contrast"
-                      value={logoContrast}
-                      min={0}
-                      max={200}
-                      onChange={(e) => setLogoContrast(Number(e.target.value))}
-                      unit="%"
-                    />
-                  </div>
-                  <button
-                    onClick={() => {
-                      setLogoRaw(null);
-                      setLogoProcessed(null);
-                    }}
-                    className="w-full py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg transition-colors"
-                  >
-                    Remove Logo
-                  </button>
-                </>
-              )}
-            </div>
-          )}
+    {/* IMAGE LOGO */}
+    {logoMode === "image" && (
+      <>
+        <label className="block w-full border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-all rounded-xl p-6 text-center cursor-pointer">
+          <Upload className="mx-auto text-gray-400 mb-2" size={24} />
+          <span className="text-sm font-medium text-gray-600">
+            Upload Logo Image
+          </span>
+          <input type="file" accept="image/*" hidden onChange={onLogoUpload} />
+        </label>
+
+        {logoRaw && (
+          <>
+            <RangeSlider
+              label="Size"
+              value={Math.round(logoSize * 100)}
+              min={10}
+              max={60}
+              onChange={(e) => setLogoSize(Number(e.target.value) / 100)}
+              unit="%"
+            />
+            <RangeSlider
+              label="Brightness"
+              value={logoBrightness}
+              min={0}
+              max={200}
+              onChange={(e) => setLogoBrightness(+e.target.value)}
+              unit="%"
+            />
+            <RangeSlider
+              label="Contrast"
+              value={logoContrast}
+              min={0}
+              max={200}
+              onChange={(e) => setLogoContrast(+e.target.value)}
+              unit="%"
+            />
+          </>
+        )}
+      </>
+    )}
+
+    {/* TEXT LOGO */}
+    {logoMode === "text" && (
+      <>
+        <input
+          value={logoText}
+          onChange={(e) => setLogoText(e.target.value.slice(0, 6))}
+          className="w-full border rounded-lg px-3 py-2 text-center font-bold uppercase"
+          placeholder="LOGO"
+        />
+
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="text-xs text-gray-500">Text Color</label>
+            <input type="color" value={textColor} onChange={(e) => setTextColor(e.target.value)} />
+          </div>
+          <div>
+            <label className="text-xs text-gray-500">Background</label>
+            <input type="color" value={textBg} onChange={(e) => setTextBg(e.target.value)} />
+          </div>
+        </div>
+
+        <RangeSlider
+          label="Logo Size"
+          value={Math.round(logoSize * 100)}
+          min={10}
+          max={60}
+          onChange={(e) => setLogoSize(Number(e.target.value) / 100)}
+          unit="%"
+        />
+      </>
+    )}
+
+    <button
+      onClick={() => {
+        setLogoRaw(null);
+        setLogoProcessed(null);
+      }}
+      className="w-full py-2 text-sm text-red-500 hover:bg-red-50 rounded-lg"
+    >
+      Remove Logo
+    </button>
+  </div>
+)}
+
+         
         </div>
       </div>
     </div>
