@@ -131,7 +131,7 @@ export default function MergePdf() {
           >
             <button
               onClick={() => fileInputRef.current.click()}
-              className="px-12 py-6 bg-[#E5322D] hover:bg-[#d42c27] text-white text-2xl font-bold rounded-xl
+              className="px-12 py-6 bg-[hsl(19,100%,56%)] hover:bg-[rgb(230,92,0)]  text-white text-2xl font-bold rounded-xl
                 shadow-[0_4px_0_0_#b82824] active:translate-y-[4px] transition-all"
             >
               Select PDF files
@@ -170,7 +170,7 @@ export default function MergePdf() {
                 >
                   <button
                     onClick={() => removeFile(index)}
-                    className="absolute top-2 right-2 bg-white border rounded-full p-1 hover:bg-red-500 hover:text-white"
+                    className="absolute top-2 right-2 bg-white border rounded-full p-1 hover:bg-[hsl(19,100%,56%)] hover:text-white"
                   >
                     <X size={14} />
                   </button>
@@ -217,7 +217,7 @@ export default function MergePdf() {
             <button
               onClick={handleConvert}
               disabled={loading}
-              className="bg-[#E5322D] hover:bg-[#d42c27] text-white text-xl font-bold py-4 px-12 rounded-xl
+              className="bg-[hsl(19,100%,56%)] hover:bg-[rgb(230,92,0)]  text-white text-xl font-bold py-4 px-12 rounded-xl
                 shadow-[0_4px_0_0_#b82824] active:translate-y-[4px] transition-all flex items-center gap-3"
             >
               {loading ? (

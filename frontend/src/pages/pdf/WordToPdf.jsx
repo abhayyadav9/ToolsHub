@@ -81,7 +81,7 @@ export default function WordToPdf() {
         <div className="mt-12 flex justify-center">
           <div className="relative">
             <label className="cursor-pointer">
-              <div className="bg-red-500 hover:bg-red-600 transition text-white text-xl font-semibold px-16 py-6 rounded-2xl shadow-lg flex items-center gap-3">
+              <div className="bg-[hsl(19,100%,56%)] hover:bg-red-600 transition text-white text-xl font-semibold px-16 py-6 rounded-2xl shadow-lg flex items-center gap-3">
                 <Upload />
                 Select Word files
               </div>
@@ -97,10 +97,10 @@ export default function WordToPdf() {
 
             {/* UI icons */}
             <div className="absolute -right-16 top-1/2 -translate-y-1/2 flex flex-col gap-3">
-              <button className="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center shadow hover:bg-red-600">
+              <button className="w-12 h-12 rounded-full bg-[hsl(19,100%,56%)] text-white flex items-center justify-center shadow hover:bg-red-600">
                 <Cloud size={20} />
               </button>
-              <button className="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center shadow hover:bg-red-600">
+              <button className="w-12 h-12 rounded-full bg-[hsl(19,100%,56%)] text-white flex items-center justify-center shadow hover:bg-red-600">
                 <HardDrive size={20} />
               </button>
             </div>
@@ -139,7 +139,7 @@ export default function WordToPdf() {
           <button
             onClick={handleConvert}
             disabled={loading}
-            className="mt-10 bg-gray-900 hover:bg-black disabled:opacity-60 text-white text-lg font-semibold px-12 py-4 rounded-xl inline-flex items-center gap-2"
+            className="mt-10 bg-[hsl(19,100%,56%)] hover:bg-[rgb(230,92,0)]  disabled:opacity-60 text-white text-lg font-semibold px-12 py-4 rounded-xl inline-flex items-center gap-2"
           >
             {loading && <Loader2 className="animate-spin" />}
             Convert to PDF

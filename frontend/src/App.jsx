@@ -10,13 +10,15 @@ import MergePdf from "./pages/pdf/MergePdf";
 import CompressPdf from "./pages/pdf/CompressPdf";
 import WordToPdf from "./pages/pdf/WordToPdf";
 import PdfToWord from "./pages/pdf/PdfToWord";
+import NotFound from "./components/NotFound";
+import UnderDevelopment from "./components/UnderDevelopment";
 
 function App() {
   return (
-    <div className="">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
 
-      <main className="">
+      <main className="flex-1">
         <Suspense
           fallback={
             <div className="py-12 text-center text-lg text-gray-600">
@@ -41,6 +43,11 @@ function App() {
 
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+
+                        <Route path="*" element={<NotFound />} />
+                        <Route path="/tools/:slug" element={<UnderDevelopment />} />
+
+
           </Routes>
         </Suspense>
       </main>

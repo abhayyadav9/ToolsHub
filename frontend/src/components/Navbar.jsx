@@ -1,172 +1,253 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, Grid3X3, Menu, X, Zap } from "lucide-react"; // Added Menu and X icons
+import {
+  ChevronDown,
+  Menu,
+  X,
+  Zap,
+  FileText,
+  Image as ImageIcon,
+  Video,
+  Music,
+  FilePlus,
+  Scissors,
+  Minimize,
+  ArrowRightLeft,
+} from "lucide-react";
+import image1 from "../assets/image1.png";
+import image from "../assets/image.png";
+import image2 from "../assets/image2.png";
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const closeTimer = useRef(null);
+
+  /* ================= DATA ================= */
 
   const pdfTools = [
-    { name: "Merge PDF", href: "/tools/merge-pdf" },
-    { name: "Split PDF", href: "/tools/split-pdf" },
-    { name: "Compress PDF", href: "/tools/compress-pdf" },
-    { name: "PDF to Word", href: "/tools/pdf-to-word" },
-    { name: "Word to PDF", href: "/tools/word-to-pdf" },
+    { name: "Merge PDF", href: "/tools/merge-pdf", icon: FilePlus },
+    { name: "Compress PDF", href: "/tools/compress-pdf", icon: Minimize },
+    { name: "PDF to Word", href: "/tools/pdf-to-word", icon: ArrowRightLeft },
+    { name: "Word to PDF", href: "/tools/word-to-pdf", icon: FileText },
+    { name: "Split PDF", href: "/tools/split-pdf", icon: Scissors },
   ];
 
+  const imageTools = [
+    { name: "Compress Image", href: "/tools/compress-image", icon: ImageIcon },
+    { name: "Resize Image", href: "/tools/resize-image", icon: ImageIcon },
+    { name: "Crop Image", href: "/tools/crop-image", icon: ImageIcon },
+  ];
+
+  const megaMenu = [
+    {
+      title: "PDF Tools",
+      color: "text-red-500",
+      icon: FileText,
+      items: pdfTools,
+    },
+    {
+      title: "Image Tools",
+      color: "text-blue-500",
+      icon: ImageIcon,
+      items: imageTools,
+    },
+    {
+      title: "Video Tools",
+      color: "text-purple-500",
+      icon: Video,
+      items: [
+        { name: "Compress Video", href: "#", icon: Video },
+        { name: "Trim Video", href: "#", icon: Video },
+      ],
+    },
+    {
+      title: "Audio Tools",
+      color: "text-green-500",
+      icon: Music,
+      items: [
+        { name: "Compress Audio", href: "#", icon: Music },
+        { name: "Voice Recorder", href: "#", icon: Music },
+      ],
+    },
+  ];
+
+  /* ================= HOVER HANDLERS ================= */
+
+  const openDropdown = (name) => {
+    clearTimeout(closeTimer.current);
+    setActiveDropdown(name);
+  };
+
+  const closeDropdown = () => {
+    closeTimer.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 120);
+  };
+
+  /* ================= COMPONENT ================= */
+
   return (
-    <header className="relative border-b bg-white shadow-sm z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="flex h-16 items-center justify-between">
-          
-          {/* LEFT: Logo */}
-          <Link to="/" className="flex items-center  font-bold text-2xl tracking-tight">
-            <Zap className="text-orange-700 stroke-2 stroke" />
+    <header className="sticky top-0 z-50 bg-white border-b shadow-sm">
+      <div className="max-w-7xl mx-auto px-4">
+        <div className="h-16 flex items-center justify-between">
+          {/* LOGO */}
+          <Link to="/" className="flex items-center text-2xl font-extrabold">
+            <Zap className="text-orange-600 mr-1" />
             <span className="text-gray-900">Tools</span>
             <span className="text-orange-600">Hub</span>
           </Link>
 
-          {/* CENTER: Desktop Main Nav (Hidden on Mobile) */}
-          <nav className="hidden lg:flex items-center gap-8 text-[15px] font-bold text-gray-700">
-            <Link className="hover:text-red-500 transition-colors" to="/tools/merge-pdf">
+          {/* DESKTOP NAV */}
+          <nav className="hidden lg:flex items-center gap-8 text-sm font-bold text-gray-700">
+            <Link to="/tools/merge-pdf" className="hover:text-red-500">
               MERGE PDF
             </Link>
-            <Link className="hover:text-red-500 transition-colors" to="/tools/split-pdf">
-              SPLIT PDF
-            </Link>
-            <Link className="hover:text-red-500 transition-colors" to="/tools/compress-pdf">
+            <Link to="/tools/compress-pdf" className="hover:text-red-500">
               COMPRESS PDF
             </Link>
 
-            {/* Convert PDF Dropdown */}
+            {/* PDF DROPDOWN */}
             <div
-              className="relative h-16 flex items-center"
-              onMouseEnter={() => setActiveDropdown("convert")}
-              onMouseLeave={() => setActiveDropdown(null)}
+              className="relative"
+              onMouseEnter={() => openDropdown("pdf")}
+              onMouseLeave={closeDropdown}
             >
-              <button className="flex items-center gap-1 hover:text-red-500 transition-colors">
-                CONVERT PDF <ChevronDown size={14} strokeWidth={3} />
+              <button className="flex items-center gap-1 hover:text-red-500">
+                PDF TOOLS <ChevronDown size={14} />
               </button>
 
-              {activeDropdown === "convert" && (
-                <div className="absolute left-0 top-full w-56 rounded-b-md border-t-2 border-red-500 bg-white shadow-xl py-2 animate-in fade-in slide-in-from-top-2 duration-200">
+              {activeDropdown === "pdf" && (
+                <div className="absolute left-0 top-full mt-2 w-64 bg-white shadow-xl rounded-lg border animate-dropdown">
                   {pdfTools.map((tool) => (
-                    <Link
-                      key={tool.name}
-                      to={tool.href}
-                      className="block px-6 py-3 text-sm font-normal text-gray-600 hover:bg-gray-50 hover:text-red-500"
-                    >
-                      {tool.name}
-                    </Link>
+                    <DropdownItem key={tool.name} {...tool} />
                   ))}
                 </div>
               )}
             </div>
 
-            {/* All Tools Dropdown */}
+            {/* IMAGE DROPDOWN */}
             <div
-              className="relative h-16 flex items-center"
-              onMouseEnter={() => setActiveDropdown("all")}
-              onMouseLeave={() => setActiveDropdown(null)}
+              className="relative"
+              onMouseEnter={() => openDropdown("image")}
+              onMouseLeave={closeDropdown}
             >
-              <button className="flex items-center gap-1 hover:text-red-500 transition-colors">
-                ALL PDF TOOLS <ChevronDown size={14} strokeWidth={3} />
+              <button className="flex items-center gap-1 hover:text-red-500">
+                IMAGE TOOLS <ChevronDown size={14} />
               </button>
 
-              {activeDropdown === "all" && (
-                <div className="absolute right-0 top-full w-64 rounded-b-md border-t-2 border-red-500 bg-white shadow-xl py-2 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <div className="px-6 py-2 text-xs font-bold text-gray-400 uppercase tracking-wider">
-                    Organize PDF
-                  </div>
-                  {pdfTools.slice(0, 3).map((tool) => (
-                    <Link
-                      key={tool.name}
-                      to={tool.href}
-                      className="block px-6 py-3 text-sm font-normal text-gray-600 hover:bg-gray-50 hover:text-red-500"
-                    >
-                      {tool.name}
-                    </Link>
+              {activeDropdown === "image" && (
+                <div className="absolute left-0 top-full mt-2 w-64 bg-white shadow-xl rounded-lg border animate-dropdown">
+                  {imageTools.map((tool) => (
+                    <DropdownItem key={tool.name} {...tool} />
                   ))}
+                </div>
+              )}
+            </div>
+
+            {/* MEGA MENU */}
+            <div
+              onMouseEnter={() => openDropdown("mega")}
+              onMouseLeave={closeDropdown}
+            >
+              <div className="flex items-center gap-1 cursor-pointer hover:text-red-500">
+                <img src={image2} className="w-8 h-8" />
+                <span className="font-bold">Tools</span>
+              </div>
+              {activeDropdown === "mega" && (
+                <div className="fixed left-0 top-16 w-full bg-white shadow-2xl border-t animate-dropdown">
+                  <div className="max-w-7xl mx-auto grid grid-cols-4 gap-10 px-8 py-10">
+                    {megaMenu.map((cat) => (
+                      <div key={cat.title}>
+                        <div className="flex items-center gap-2 mb-4">
+                          <cat.icon className={`${cat.color}`} />
+                          <h3 className="font-bold uppercase text-sm">
+                            {cat.title}
+                          </h3>
+                        </div>
+
+                        <ul className="space-y-3">
+                          {cat.items.map((item) => (
+                            <li key={item.name}>
+                              <Link
+                                to={item.href}
+                                className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition"
+                              >
+                                <item.icon size={16} />
+                                {item.name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
           </nav>
 
-          {/* RIGHT: Actions & Mobile Toggle */}
-          <div className="flex items-center gap-4">
-            {/* <div className="hidden md:flex items-center gap-4">
-              <Link
-                to="/login"
-                className="text-sm font-bold text-gray-700 hover:text-red-500"
-              >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                className="rounded-md bg-red-500 px-5 py-2 text-sm font-bold text-white transition-colors hover:bg-red-600"
-              >
-                Sign up
-              </Link>
-            </div> */}
-
-            {/* Hamburger Button (Visible on Mobile) */}
-            <button 
-              className="lg:hidden p-2 text-gray-600 hover:text-red-500"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            >
-              {isMobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-            </button>
-          </div>
+          {/* MOBILE BUTTON */}
+          <button
+            className="lg:hidden p-2"
+            onClick={() => setIsMobileMenuOpen(true)}
+          >
+            <Menu size={28} />
+          </button>
         </div>
       </div>
 
-      {/* MOBILE MENU (Visible when open) */}
+      {/* MOBILE MENU */}
       {isMobileMenuOpen && (
-        <div
-        onClick={() => {setIsMobileMenuOpen(false); setInterval(() => {}, 100)}}
-        
-        
-         className="lg:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg h-[calc(100vh-64px)] overflow-y-auto">
-          <div className="flex flex-col p-4 space-y-4">
-            <Link to="/tools/merge-pdf" className="text-lg font-medium text-gray-700 py-2 border-b">
-              Merge PDF
-            </Link>
-            <Link to="/tools/split-pdf" className="text-lg font-medium text-gray-700 py-2 border-b">
-              Split PDF
-            </Link>
-            <Link to="/tools/compress-pdf" className="text-lg font-medium text-gray-700 py-2 border-b">
-              Compress PDF
-            </Link>
-            
-            <div className="py-2">
-              <h3 className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Convert PDF</h3>
-              <div className="grid grid-cols-1 gap-2 pl-4">
-                {pdfTools.map((tool) => (
-                   <Link key={tool.name} to={tool.href} className="text-gray-600 py-2">
-                     {tool.name}
-                   </Link>
-                ))}
-              </div>
+        <div className="fixed inset-0 z-50 bg-black/40">
+          <div className="absolute right-0 top-0 h-full w-[85%] bg-white animate-slide-in">
+            <div className="h-16 flex items-center justify-between px-4 border-b">
+              <span className="font-bold text-lg">All Tools</span>
+              <button onClick={() => setIsMobileMenuOpen(false)}>
+                <X size={26} />
+              </button>
             </div>
 
-            {/* Mobile Auth Buttons
-            <div className="pt-4 flex flex-col gap-3">
-              <Link
-                to="/login"
-                className="w-full text-center py-3 rounded-md bg-gray-100 font-bold text-gray-700"
-              >
-                Login
-              </Link>
-              <Link
-                to="/signup"
-                className="w-full text-center py-3 rounded-md bg-red-500 font-bold text-white"
-              >
-                Sign up
-              </Link>
-            </div> */}
+            <div className="p-4 space-y-6">
+              {megaMenu.map((cat) => (
+                <div key={cat.title}>
+                  <h3 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
+                    <cat.icon className={cat.color} size={18} />
+                    {cat.title}
+                  </h3>
+                  <div className="space-y-2 pl-4">
+                    {cat.items.map((item) => (
+                      <Link
+                        key={item.name}
+                        to={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="flex items-center gap-2 text-gray-600"
+                      >
+                        <item.icon size={16} />
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       )}
     </header>
+  );
+}
+
+/* ================= SHARED COMPONENT ================= */
+
+function DropdownItem({ name, href, icon: Icon }) {
+  return (
+    <Link
+      to={href}
+      className="flex items-center gap-3 px-5 py-3 text-sm text-gray-600 hover:bg-gray-50 hover:text-red-500 transition"
+    >
+      <Icon size={16} />
+      {name}
+    </Link>
   );
 }
