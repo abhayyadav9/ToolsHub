@@ -122,7 +122,11 @@ export default function Navbar() {
 
       {/* MOBILE MENU (Visible when open) */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg h-[calc(100vh-64px)] overflow-y-auto">
+        <div
+        onClick={() => {setIsMobileMenuOpen(false); setInterval(() => {}, 100)}}
+        
+        
+         className="lg:hidden absolute top-16 left-0 w-full bg-white border-b shadow-lg h-[calc(100vh-64px)] overflow-y-auto">
           <div className="flex flex-col p-4 space-y-4">
             <Link to="/tools/merge-pdf" className="text-lg font-medium text-gray-700 py-2 border-b">
               Merge PDF

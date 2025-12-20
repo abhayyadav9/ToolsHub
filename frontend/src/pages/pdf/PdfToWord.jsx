@@ -7,9 +7,9 @@ import {
   HardDrive,
   Loader2,
 } from "lucide-react";
-import { compressPdf } from "../../utils/api";
+import { pdfToWord } from "../../utils/api";
 
-export default function CompressPdf() {
+export default function PdfToWord() {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -31,17 +31,17 @@ export default function CompressPdf() {
       setLoading(true);
 
       // ✅ API abstraction used here
-      const blob = await compressPdf(files);
+      const blob = await pdfToWord(files);
 
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "compressed.pdf";
+      a.download = "converted.docx";
       a.click();
       window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
-      alert("PDF compression failed");
+      alert("PDF to Word conversion failed");
     } finally {
       setLoading(false);
     }
@@ -52,10 +52,10 @@ export default function CompressPdf() {
       <div className="max-w-4xl w-full px-4 text-center">
         {/* Heading */}
         <h1 className="text-4xl md:text-5xl font-extrabold text-purple-800">
-          Compress PDF files
+          Convert PDF to Word
         </h1>
         <p className="mt-4 text-lg text-gray-500">
-          Reduce the size of your PDFs quickly and easily with our PDF compressor.
+          Easily convert your PDF documents to Word format with our simple tool.
         </p>
 
         {/* Upload Button */}

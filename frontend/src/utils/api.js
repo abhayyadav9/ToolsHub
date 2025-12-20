@@ -34,10 +34,10 @@ export const splitPdf = (files) =>
   uploadPdf(`${BASE_URL}/pdf/split`, files);
 
 export const pdfToWord = (files) =>
-  uploadPdf(`${BASE_URL}/pdf/pdf-to-word`, files);
+  uploadPdf(`${BASE_URL}/pdf/convert-to-word`, files);
 
 export const wordToPdf = (files) =>
-  uploadPdf(`${BASE_URL}/pdf/word-to-pdf`, files);
+  uploadPdf(`${BASE_URL}/pdf/convert-to-pdf`, files);
 
 /* ===================== IMAGE APIs ===================== */
 

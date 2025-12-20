@@ -8,13 +8,15 @@ import About from "./components/About";
 import Contact from "./components/Contact";
 import MergePdf from "./pages/pdf/MergePdf";
 import CompressPdf from "./pages/pdf/CompressPdf";
+import WordToPdf from "./pages/pdf/WordToPdf";
+import PdfToWord from "./pages/pdf/PdfToWord";
 
 function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="">
       <Navbar />
 
-      <main className="flex-1">
+      <main className="">
         <Suspense
           fallback={
             <div className="py-12 text-center text-lg text-gray-600">
@@ -30,12 +32,12 @@ function App() {
 
             <Route path="/tools/merge-pdf" element={<MergePdf />} />
             <Route path="/tools/compress-pdf" element={<CompressPdf />} />
+            <Route path="/tools/word-to-pdf" element={<WordToPdf />} />
+            <Route path="/tools/pdf-to-word" element={<PdfToWord />} />
 
             {/* <Route path="/tools/split-pdf" element={<SplitPdf />} />
-            <Route path="/tools/pdf-to-word" element={<PdfToWord />} />
-            <Route path="/tools/word-to-pdf" element={<WordToPdf />} /> */}
-
-
+          
+             */}
 
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />

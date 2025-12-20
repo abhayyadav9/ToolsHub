@@ -7,41 +7,60 @@ import {
   HardDrive,
   Loader2,
 } from "lucide-react";
-import { compressPdf } from "../../utils/api";
+import { wordToPdf } from "../../utils/api";
 
-export default function CompressPdf() {
+export default function WordToPdf() {
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // ---------------- FILE SELECT ----------------
   const onSelectFiles = (e) => {
     const selected = Array.from(e.target.files).filter(
-      (f) => f.type === "application/pdf"
+      (f) =>
+        f.type === "application/msword" ||
+        f.type ===
+          "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
+        f.name.endsWith(".doc") ||
+        f.name.endsWith(".docx")
     );
-    setFiles((prev) => [...prev, ...selected]);
+
+    if (!selected.length) {
+      alert("Please select Word files only (.doc or .docx)");
+      return;
+    }
+
+    setFiles((prev) => {
+      const existing = prev.map((f) => f.name);
+      const unique = selected.filter((f) => !existing.includes(f.name));
+      return [...prev, ...unique];
+    });
   };
 
   const removeFile = (index) => {
     setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
+  // ---------------- CONVERT ----------------
   const handleConvert = async () => {
     if (!files.length) return;
 
     try {
       setLoading(true);
 
-      // ✅ API abstraction used here
-      const blob = await compressPdf(files);
+      const blob = await wordToPdf(files);
 
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "compressed.pdf";
+      a.download = "converted.pdf";
+      document.body.appendChild(a);
       a.click();
+
+      a.remove();
       window.URL.revokeObjectURL(url);
     } catch (err) {
       console.error(err);
-      alert("PDF compression failed");
+      alert("Word to PDF conversion failed");
     } finally {
       setLoading(false);
     }
@@ -52,30 +71,31 @@ export default function CompressPdf() {
       <div className="max-w-4xl w-full px-4 text-center">
         {/* Heading */}
         <h1 className="text-4xl md:text-5xl font-extrabold text-purple-800">
-          Compress PDF files
+          Convert Word to PDF
         </h1>
         <p className="mt-4 text-lg text-gray-500">
-          Reduce the size of your PDFs quickly and easily with our PDF compressor.
+          Easily convert your Word documents to PDF format.
         </p>
 
-        {/* Upload Button */}
+        {/* Upload */}
         <div className="mt-12 flex justify-center">
           <div className="relative">
             <label className="cursor-pointer">
               <div className="bg-red-500 hover:bg-red-600 transition text-white text-xl font-semibold px-16 py-6 rounded-2xl shadow-lg flex items-center gap-3">
                 <Upload />
-                Select PDF files
+                Select Word files
               </div>
+
               <input
                 type="file"
-                accept="application/pdf"
+                accept=".doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 multiple
                 hidden
                 onChange={onSelectFiles}
               />
             </label>
 
-            {/* Cloud icons (UI only for now) */}
+            {/* UI icons */}
             <div className="absolute -right-16 top-1/2 -translate-y-1/2 flex flex-col gap-3">
               <button className="w-12 h-12 rounded-full bg-red-500 text-white flex items-center justify-center shadow hover:bg-red-600">
                 <Cloud size={20} />
@@ -88,10 +108,10 @@ export default function CompressPdf() {
         </div>
 
         <p className="mt-6 text-sm text-gray-500">
-          or drop PDFs here
+          or drop Word files here
         </p>
 
-        {/* Small Preview */}
+        {/* Preview */}
         {files.length > 0 && (
           <div className="mt-10 flex flex-wrap justify-center gap-3">
             {files.map((file, index) => (
@@ -114,7 +134,7 @@ export default function CompressPdf() {
           </div>
         )}
 
-        {/* Convert Button */}
+        {/* Convert */}
         {files.length > 0 && (
           <button
             onClick={handleConvert}
@@ -122,7 +142,7 @@ export default function CompressPdf() {
             className="mt-10 bg-gray-900 hover:bg-black disabled:opacity-60 text-white text-lg font-semibold px-12 py-4 rounded-xl inline-flex items-center gap-2"
           >
             {loading && <Loader2 className="animate-spin" />}
-            Compress PDF
+            Convert to PDF
           </button>
         )}
       </div>

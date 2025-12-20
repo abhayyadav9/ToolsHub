@@ -66,7 +66,7 @@ export default function MergePdf() {
         timeout: 300000,
       });
 
-    //   const blob = new Blob([res.data], { type: "application/pdf" });
+      //   const blob = new Blob([res.data], { type: "application/pdf" });
       const url = window.URL.createObjectURL(res.data);
 
       const a = document.createElement("a");
@@ -100,15 +100,19 @@ export default function MergePdf() {
   return (
     <div className="min-h-screen bg-[#F4F5F7] flex flex-col">
       {/* HEADER */}
-      <div className="pt-16 pb-10 text-center px-4">
-        <h1 className="text-4xl md:text-[42px] font-extrabold text-[#33333b] mb-4">
-          Merge PDF files
-        </h1>
-        <p className="text-lg md:text-[22px] text-[#47474f] max-w-2xl mx-auto">
-          Combine PDFs in the order you want with the easiest PDF merger
-          available.
-        </p>
-      </div>
+
+      <section className="bg-gray-50  mt-24 flex items-center justify-center">
+        <div className="max-w-4xl w-full px-4 text-center">
+          {/* Heading */}
+          <h1 className="text-4xl md:text-5xl font-extrabold text-purple-800">
+            Merge PDF files
+          </h1>
+          <p className="mt-4 text-lg text-gray-500">
+            Combine PDFs in the order you want with the easiest PDF merger
+            available.
+          </p>
+        </div>
+      </section>
 
       {/* BODY */}
       <div className="flex-1 flex flex-col items-center px-4 pb-28">
