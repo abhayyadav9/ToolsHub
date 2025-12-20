@@ -37,6 +37,7 @@ export default function Navbar() {
     { name: "Compress Image", href: "/tools/compress-image", icon: ImageIcon },
     { name: "Resize Image", href: "/tools/resize-image", icon: ImageIcon },
     { name: "Crop Image", href: "/tools/crop-image", icon: ImageIcon },
+    { name: "QR Code Generator", href: "/tools/qr-generator", icon: ImageIcon },
   ];
 
   const megaMenu = [

@@ -12,6 +12,8 @@ import WordToPdf from "./pages/pdf/WordToPdf";
 import PdfToWord from "./pages/pdf/PdfToWord";
 import NotFound from "./components/NotFound";
 import UnderDevelopment from "./components/UnderDevelopment";
+import ImageCropperTool from "./pages/imageTool/ImageCropper";
+import QrGenerator from "./pages/imageTool/QrGenerator";
 
 function App() {
   return (
@@ -41,13 +43,18 @@ function App() {
           
              */}
 
+             {/* //image tools */}
+
+            <Route path="/tools/compress-image" element={<UnderDevelopment />} />
+            <Route path="/tools/resize-image" element={<UnderDevelopment />} />
+            <Route path="/tools/crop-image" element={<ImageCropperTool />} />
+            <Route path="/tools/qr-generator" element={<QrGenerator />} />
+
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
 
-                        <Route path="*" element={<NotFound />} />
-                        <Route path="/tools/:slug" element={<UnderDevelopment />} />
-
-
+            <Route path="*" element={<NotFound />} />
+            <Route path="/tools/:slug" element={<UnderDevelopment />} />
           </Routes>
         </Suspense>
       </main>
