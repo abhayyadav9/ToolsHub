@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "https://api.toolshub.me";
+export const BASE_URL = "http://10.158.178.3:5001";
 
 /**
  * Generic PDF upload handler

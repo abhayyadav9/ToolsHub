@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { FileText, X, Loader2, Plus, ArrowRight } from "lucide-react";
 
-const API_BASE = "https://api.toolshub.me";
+const API_BASE = "http://10.158.178.3:5001";
 
 export default function MergePdf() {
   const [files, setFiles] = useState([]);

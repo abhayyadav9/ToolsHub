@@ -35,9 +35,10 @@ export default function Navbar() {
 
   const imageTools = [
     { name: "Compress Image", href: "/tools/compress-image", icon: ImageIcon },
-    { name: "Resize Image", href: "/tools/resize-image", icon: ImageIcon },
+    { name: "Image Type Converter", href: "/tools/image-type-converter", icon: ImageIcon },
     { name: "Crop Image", href: "/tools/crop-image", icon: ImageIcon },
     { name: "QR Code Generator", href: "/tools/qr-generator", icon: ImageIcon },
+    { name: "Background Remover", href: "/tools/bg-remover", icon: ImageIcon },
   ];
 
   const megaMenu = [

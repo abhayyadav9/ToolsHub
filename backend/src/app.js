@@ -1,0 +1,17 @@
+import express from "express";
+import cors from "cors";
+import helmet from "helmet";
+import routes from "./routes/image.route.js";
+import errorHandler from "./middlewares/error.middleware.js";
+
+const app = express();
+
+app.use(cors());
+app.use(helmet());
+app.use(express.json());
+
+app.use("/api/image", routes);
+
+app.use(errorHandler);
+
+export default app;

@@ -1,0 +1,13 @@
+flask
+flask-cors
+gunicorn
+
+# Image processing
+pillow
+numpy
+rembg
+onnxruntime
+
+# PDF tools
+pdf2docx
+pypdf

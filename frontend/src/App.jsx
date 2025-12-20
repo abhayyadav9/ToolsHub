@@ -14,6 +14,9 @@ import NotFound from "./components/NotFound";
 import UnderDevelopment from "./components/UnderDevelopment";
 import ImageCropperTool from "./pages/imageTool/ImageCropper";
 import QrGenerator from "./pages/imageTool/QrGenerator";
+import ImageCompressor from "./pages/imageTool/ImageCompressor";
+import ImageTypeConverter from "./pages/imageTool/ImageTypeConverter";
+import BgRemover from "./pages/imageTool/BgRemover";
 
 function App() {
   return (
@@ -45,10 +48,11 @@ function App() {
 
              {/* //image tools */}
 
-            <Route path="/tools/compress-image" element={<UnderDevelopment />} />
-            <Route path="/tools/resize-image" element={<UnderDevelopment />} />
+            <Route path="/tools/compress-image" element={<ImageCompressor />} />
+            <Route path="/tools/image-type-converter" element={<ImageTypeConverter />} />
             <Route path="/tools/crop-image" element={<ImageCropperTool />} />
             <Route path="/tools/qr-generator" element={<QrGenerator />} />
+            <Route path="/tools/bg-remover" element={<BgRemover />} />
 
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
