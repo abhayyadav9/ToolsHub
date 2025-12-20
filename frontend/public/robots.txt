@@ -1,7 +1,10 @@
+# ToolsHub - Robots.txt
+# Welcome crawlers! All our tools are free and meant to be discovered.
+
 User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemap location
 Sitemap: https://toolshub.me/sitemap.xml
 
 # Crawl-delay for respectful crawling
@@ -12,3 +15,28 @@ Disallow: /api/
 Disallow: /temp/
 Disallow: /uploads/
 Disallow: /downloads/
+
+# Allow all tools and content
+Allow: /tools/
+Allow: /pdf-tools
+Allow: /image-tools
+Allow: /video-tools
+Allow: /audio-tools
+Allow: /document-tools
+
+# User-agent specific rules
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Rate limit for SEO crawlers
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
