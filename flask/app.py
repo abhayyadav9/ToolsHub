@@ -153,32 +153,46 @@ def word_to_pdf():
     output_name = f"{base_name(file.filename)}.pdf"
     final_path = os.path.join(TMP_DIR, output_name)
 
-    subprocess.run([
+    cmd = [
         get_libreoffice(),
         "--headless",
         "--convert-to", "pdf",
         "--outdir", TMP_DIR,
         temp_input
-    ], capture_output=True)
+    ]
 
-    os.remove(temp_input)
+    try:
+        result = subprocess.run(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
 
-    generated = os.path.join(
-        TMP_DIR,
-        f"{os.path.splitext(os.path.basename(temp_input))[0]}.pdf"
-    )
+        generated = os.path.join(
+            TMP_DIR,
+            f"{os.path.splitext(os.path.basename(temp_input))[0]}.pdf"
+        )
 
-    if not os.path.exists(generated):
-        return jsonify({"error": "Conversion failed"}), 500
+        if result.returncode != 0 or not os.path.exists(generated):
+            return jsonify({
+                "error": "LibreOffice conversion failed",
+                "stdout": result.stdout,
+                "stderr": result.stderr
+            }), 500
 
-    os.rename(generated, final_path)
+        os.rename(generated, final_path)
 
-    resp = send_file(final_path, as_attachment=True, download_name=output_name)
-    resp.headers["Access-Control-Allow-Origin"] = "*"
-    resp.headers["Access-Control-Expose-Headers"] = "Content-Disposition"
+        return send_file(
+            final_path,
+            as_attachment=True,
+            download_name=output_name
+        )
 
-    delete_later(final_path)
-    return resp
+    finally:
+        if os.path.exists(temp_input):
+            os.remove(temp_input)
+        delete_later(final_path)
 
 # -------------------------------------------------
 # MERGE PDFs (DIRECT DOWNLOAD)
