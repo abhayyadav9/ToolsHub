@@ -1,26 +1,97 @@
 <!doctype html>
 <html lang="en">
-
 <head>
+  <!-- ================= BASIC ================= -->
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="zap.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ToolsHub</title>
-</head>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0f172a" />
 
-<body>
-  <div id="root"></div>
+  <!-- ================= TITLE ================= -->
+  <title>
+    Toolshub – Free Online PDF, Document, Image & QR Code Tools
+  </title>
 
-  <!-- Google tag (gtag.js) -->
+  <!-- ================= META DESCRIPTION ================= -->
+  <meta
+    name="description"
+    content="Toolshub is a free online platform offering PDF tools, document to PDF conversion, image processing, compression, QR code generator, and more. Secure, fast, and production-grade utilities."
+  />
+
+  <!-- ================= KEYWORDS (LIGHT USE) ================= -->
+  <meta
+    name="keywords"
+    content="pdf tools, word to pdf, ppt to pdf, merge pdf, split pdf, image compression, background remover, qr code generator, free online tools"
+  />
+
+  <!-- ================= CANONICAL ================= -->
+  <link rel="canonical" href="https://www.toolshub.me/" />
+
+  <!-- ================= FAVICON ================= -->
+  <link rel="icon" type="image/png" href="/zap.png" />
+  <link rel="apple-touch-icon" href="/zap.png" />
+
+  <!-- ================= OPEN GRAPH (SOCIAL + GOOGLE) ================= -->
+  <meta property="og:title" content="Toolshub – Free Online PDF, Document & Image Tools" />
+  <meta
+    property="og:description"
+    content="Convert documents to PDF, merge & split PDFs, compress images, generate QR codes and more – fast, secure and free."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.toolshub.me/" />
+  <meta property="og:image" content="https://www.toolshub.me/og-image.png" />
+  <meta property="og:site_name" content="Toolshub" />
+
+  <!-- ================= TWITTER CARD ================= -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Toolshub – Free Online Document & Utility Tools" />
+  <meta
+    name="twitter:description"
+    content="All-in-one platform for PDF tools, document conversion, image processing, QR generation and more."
+  />
+  <meta name="twitter:image" content="https://www.toolshub.me/og-image.png" />
+
+  <!-- ================= SEO ROBOTS ================= -->
+  <meta name="robots" content="index, follow" />
+  <meta name="googlebot" content="index, follow" />
+
+  <!-- ================= PERFORMANCE ================= -->
+  <link rel="preconnect" href="https://www.googletagmanager.com" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+
+  <!-- ================= STRUCTURED DATA (JSON-LD) ================= -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Toolshub",
+    "url": "https://www.toolshub.me/",
+    "applicationCategory": "ProductivityApplication",
+    "operatingSystem": "All",
+    "description": "Toolshub is a free online platform for PDF tools, document conversion, image processing, file compression and QR code generation.",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    }
+  }
+  </script>
+
+  <!-- ================= GOOGLE ANALYTICS ================= -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0VVT2W9ZZ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+    function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-S0VVT2W9ZZ');
   </script>
+
+</head>
+
+<body>
+  <!-- ================= APP ROOT ================= -->
+  <div id="root"></div>
+
+  <!-- ================= MAIN SCRIPT ================= -->
   <script type="module" src="/src/main.jsx"></script>
 </body>
-
 </html>
