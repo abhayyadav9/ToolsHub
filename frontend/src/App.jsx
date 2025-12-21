@@ -1,4 +1,4 @@
-import { Suspense, lazy } from "react";
+import { Suspense, lazy, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
@@ -42,7 +42,20 @@ const LoadingFallback = () => (
   </div>
 );
 
-function App() {
+function App() { 
+  useEffect(()=>{
+    const handleServerWakeup= async()=>{
+      try {
+        const response = await fetch("https://toolshub-kg7q.onrender.com/status")
+        console.log(response.data)
+        
+      } catch (error) {
+        console.error("Error waking up the server:", error);
+        
+      }
+    }
+    handleServerWakeup();
+  },[])
   return (
     <div className="min-h-screen flex flex-col">
       <Navbar />

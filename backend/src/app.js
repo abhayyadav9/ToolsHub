@@ -12,6 +12,10 @@ app.use(express.json());
 
 app.use("/api/image", routes);
 
+app.get("/status", (req, res) => {
+  res.status(200).json({ status: "Server is up and running!" });
+});
+
 app.use(errorHandler);
 
 export default app;
