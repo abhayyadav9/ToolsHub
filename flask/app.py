@@ -7,6 +7,8 @@ import time
 
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
+from werkzeug.utils import secure_filename
+
 
 from pdf2docx import Converter
 from pypdf import PdfReader, PdfWriter
@@ -207,6 +209,98 @@ def word_to_pdf():
         if os.path.exists(temp_input):
             os.remove(temp_input)
         delete_later(final_path)
+
+
+# ANY DOCUMENT → PDF (DIRECT DOWNLOAD)
+# -------------------------------------------------
+@app.route("/pdf/convert-any-to-pdf", methods=["POST"])
+def convert_any_to_pdf():
+    file = request.files.get("file")
+    if not file:
+        return jsonify({"error": "No file provided"}), 400
+
+    # ---- Allowed extensions (LibreOffice safe) ----
+    ALLOWED_EXTENSIONS = {
+        ".doc", ".docx",
+        ".ppt", ".pptx",
+        ".xls", ".xlsx",
+        ".odt", ".odp", ".ods",
+        ".rtf", ".txt"
+    }
+
+    filename = secure_filename(file.filename)
+    ext = os.path.splitext(filename)[1].lower()
+
+    if ext not in ALLOWED_EXTENSIONS:
+        return jsonify({
+            "error": "Unsupported file type",
+            "supported": list(ALLOWED_EXTENSIONS)
+        }), 400
+
+    # ---- Temp input path ----
+    temp_input = temp_file(filename)
+    file.save(temp_input)
+
+    # ---- Final output ----
+    output_name = f"{base_name(filename)}.pdf"
+    final_path = os.path.join(TMP_DIR, output_name)
+
+    # ---- LibreOffice command (SAME FLAGS AS YOUR WORKING API) ----
+    cmd = [
+        get_libreoffice(),
+        "--headless",
+        "--nologo",
+        "--nodefault",
+        "--nolockcheck",
+        "--norestore",
+        "--invisible",
+        "-env:UserInstallation=file:///tmp/libreoffice-profile",
+        "--convert-to", "pdf",
+        "--outdir", TMP_DIR,
+        temp_input
+    ]
+
+    try:
+        result = subprocess.run(
+            cmd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
+        generated = os.path.join(
+            TMP_DIR,
+            f"{os.path.splitext(os.path.basename(temp_input))[0]}.pdf"
+        )
+
+        if result.returncode != 0 or not os.path.exists(generated):
+            return jsonify({
+                "error": "LibreOffice conversion failed",
+                "stdout": result.stdout,
+                "stderr": result.stderr
+            }), 500
+
+        # ---- Rename for clean download name ----
+        os.rename(generated, final_path)
+
+        return send_file(
+            final_path,
+            as_attachment=True,
+            download_name=output_name,
+            mimetype="application/pdf"
+        )
+
+    finally:
+        # ---- Cleanup (CRITICAL) ----
+        if os.path.exists(temp_input):
+            os.remove(temp_input)
+        delete_later(final_path)
+
+
+
+
+
+
 
 # -------------------------------------------------
 # MERGE PDFs (DIRECT DOWNLOAD)

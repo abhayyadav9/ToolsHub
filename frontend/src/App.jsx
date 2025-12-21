@@ -5,6 +5,7 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import PdfSplit from "./pages/pdf/PdfSplit";
+import ConvertToPdf from "./pages/pdf/ConvertToPdf";
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./components/Home"));
@@ -80,7 +81,7 @@ function App() {
             <Route path="/tools/merge-pdf" element={<MergePdf />} />
             <Route path="/tools/compress-pdf" element={<CompressPdf />} />
             <Route path="/tools/split-pdf" element={<PdfSplit />} />
-            <Route path="/tools/pdf-ocr" element={<UnderDevelopment />} />
+            <Route path="/tools/convert-any-to-pdf" element={<ConvertToPdf />} />
             <Route path="/tools/protect-pdf" element={<UnderDevelopment />} />
             <Route path="/tools/unlock-pdf" element={<UnderDevelopment />} />
 

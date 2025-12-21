@@ -147,7 +147,7 @@ export default function PdfSplit() {
 
   /* ---------- Render ---------- */
   return (
-    <div className="min-h-screen bg-slate-50 flex items-center justify-center mt-4 font-sans text-slate-900">
+    <div className="min-h-screen bg-slate-50 flex mb-10 items-center justify-center mt-4 font-sans text-slate-900">
       <div className="w-full max-w-4xl bg-white rounded-3xl shadow-xl overflow-hidden ring-1 ring-slate-900/5 transition-all duration-300">
         
         {/* HEADER */}

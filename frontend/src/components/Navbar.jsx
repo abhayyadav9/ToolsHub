@@ -33,6 +33,7 @@ export default function Navbar() {
     { name: "PDF to Word", href: "/tools/pdf-to-word", icon: ArrowRightLeft },
     { name: "Word to PDF", href: "/tools/word-to-pdf", icon: FileText },
     { name: "Split PDF", href: "/tools/split-pdf", icon: Scissors },
+    { name: "Convert Any to PDF", href: "/tools/convert-any-to-pdf", icon: FileText },
   ];
 
   const imageTools = [
