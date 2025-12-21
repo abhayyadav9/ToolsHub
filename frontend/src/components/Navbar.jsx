@@ -101,7 +101,7 @@ export default function Navbar() {
           </Link>
 
           {/* DESKTOP NAV */}
-          <nav className="hidden lg:flex items-center gap-8 text-sm font-bold text-gray-700">
+          <nav className="hidden lg:flex  items-center gap-8 text-sm font-bold text-gray-700">
             <Link to="/tools/merge-pdf" className="hover:text-red-500">
               MERGE PDF
             </Link>
@@ -129,39 +129,73 @@ export default function Navbar() {
             </div>
 
             {/* IMAGE DROPDOWN */}
-            <div
-              className="relative"
-              onMouseEnter={() => openDropdown("image")}
-              onMouseLeave={closeDropdown}
-            >
-              <button className="flex items-center gap-1 hover:text-red-500">
-                IMAGE TOOLS <ChevronDown size={14} />
-              </button>
+<div
+  className="relative"
+  onMouseEnter={() => openDropdown("image")}
+  onMouseLeave={closeDropdown}
+>
+  <button 
+    className={`flex items-center gap-1 text-sm font-bold transition-colors duration-200 ${
+      activeDropdown === "image"
+        ? "text-red-500"
+        : "text-gray-700 hover:text-red-500"
+    }`}
+  >
+    IMAGE TOOLS
+    <ChevronDown
+      size={14}
+      strokeWidth={3}
+      className={`transition-transform duration-200 ${
+        activeDropdown === "image" ? "rotate-180" : ""
+      }`}
+    />
+  </button>
 
-              {activeDropdown === "image" && (
-                <div className="absolute left-0 top-full mt-2 w-64 bg-white shadow-xl rounded-lg border animate-dropdown">
-                  {imageTools.map((tool) => (
-                    <DropdownItem key={tool.name} {...tool} />
-                  ))}
-                </div>
-              )}
-            </div>
+  {activeDropdown === "image" && (
+    <div
+      className="
+        absolute top-full mt-3 w-72
+        right-0   /* 👈 THIS is the magic */
+        bg-white rounded-xl shadow-2xl
+        border border-gray-100 overflow-hidden z-50
+        animate-in fade-in slide-in-from-top-2 duration-200
+      "
+    >
+      {/* Decorative Red Line */}
+      <div className="h-1 w-full bg-gradient-to-r from-red-500 to-orange-500" />
+
+      <div className="p-3 grid gap-1">
+        {imageTools.map((tool) => (
+          <Link
+            key={tool.name}
+            to={tool.href}
+            className="block px-4 py-3 rounded-lg text-sm font-medium
+              text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+          >
+            {tool.name}
+          </Link>
+        ))}
+      </div>
+    </div>
+  )}
+</div>
 
             {/* MEGA MENU */}
             <div
               onMouseEnter={() => openDropdown("mega")}
               onMouseLeave={closeDropdown}
+              className="relative mr-9"
             >
-              <div className="flex items-center gap-1 cursor-pointer hover:text-red-500">
+              <div className="flex mr-10 items-center gap-1 cursor-pointer hover:text-red-500">
                 <img src={image2} className="w-8 h-8" />
                 <span className="font-bold">Tools</span>
               </div>
               {activeDropdown === "mega" && (
-                <div className="fixed left-0 top-16 w-full bg-white shadow-2xl border-t animate-dropdown">
+                <div className="fixed right-8 top-16 w-full bg-white shadow-2xl border-t animate-dropdown">
                   <div className="max-w-7xl mx-auto grid grid-cols-4 gap-10 px-8 py-10">
                     {megaMenu.map((cat) => (
                       <div key={cat.title}>
-                        <div className="flex items-center gap-2 mb-4">
+                        <div className="flex items-center mr-6 gap-2 mb-4">
                           <cat.icon className={`${cat.color}`} />
                           <h3 className="font-bold uppercase text-sm">
                             {cat.title}

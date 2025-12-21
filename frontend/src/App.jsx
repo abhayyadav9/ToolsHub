@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./components/Home"));
@@ -95,6 +96,8 @@ function App() {
             {/* Static Pages */}
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
+            
 
             {/* Fallback Routes */}
             <Route path="/tools/:slug" element={<UnderDevelopment />} />
