@@ -160,11 +160,11 @@ export default function ImageTypeConverter() {
                                     onClick={() => setTargetFormat(f.value)}
                                     className={`text-left p-3 rounded-xl border transition-all ${
                                         targetFormat === f.value
-                                        ? "border-indigo-600 bg-indigo-50 ring-1 ring-indigo-600"
-                                        : "border-gray-200 hover:border-indigo-300 hover:bg-gray-50"
+                                        ? "border-red-600 bg-red-50 ring-1 ring-red-600"
+                                        : "border-gray-200 hover:border-red-300 hover:bg-red-50"
                                     }`}
                                 >
-                                    <div className={`font-bold text-sm ${targetFormat === f.value ? "text-indigo-700" : "text-gray-700"}`}>
+                                    <div className={`font-bold text-sm ${targetFormat === f.value ? "text-red-700" : "text-gray-700"}`}>
                                         {f.label}
                                     </div>
                                     <div className="text-[10px] text-gray-500 mt-0.5">{f.desc}</div>
@@ -179,7 +179,7 @@ export default function ImageTypeConverter() {
                             <button 
                                 onClick={convertImage}
                                 disabled={loading}
-                                className="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl font-bold shadow-lg shadow-indigo-200 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+                                className="w-full py-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold shadow-lg shadow-red-200 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
                             >
                                 {loading ? <Loader2 className="animate-spin" /> : <RefreshCw />}
                                 {loading ? "Converting..." : "Convert Now"}
@@ -199,7 +199,7 @@ export default function ImageTypeConverter() {
                                 <a 
                                     href={result.url}
                                     download={`converted-image.${result.format}`}
-                                    className="w-full py-4 bg-green-600 hover:bg-green-700 text-white rounded-xl font-bold shadow-lg shadow-green-200 flex items-center justify-center gap-2 transition-all hover:scale-105"
+                                    className="w-full py-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold shadow-lg shadow-red-200 flex items-center justify-center gap-2 transition-all hover:scale-105"
                                 >
                                     <Download size={20} /> Download {result.format.toUpperCase()}
                                 </a>

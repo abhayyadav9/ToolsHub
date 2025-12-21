@@ -222,7 +222,7 @@ useEffect(() => {
     <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col font-sans">
       {/* 1. TOP NAVIGATION (Mobile) / LEFT SIDEBAR (Desktop) */}
       <div className="w-full md:w-20 bg-white border-b md:border-r md:border-b-0 border-gray-200 flex md:flex-col items-center justify-between md:justify-start py-3 px-4 md:px-0 md:py-4 md:space-y-8 md:fixed md:left-0 md:top-0 md:h-full z-30 shadow-sm">
-        <div className="hidden md:block p-2 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg shadow-md">
+        <div className="hidden md:block p-2 bg-gradient-to-br from-red-500 to-indigo-600 rounded-lg shadow-md">
           <QrCode className="text-white w-6 h-6" />
         </div>
 
@@ -268,7 +268,7 @@ useEffect(() => {
               <div className="hidden sm:block h-6 w-px bg-gray-300 mx-2"></div>
               <button
                 onClick={() => download("png")}
-                className="px-4 sm:px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-full text-xs sm:text-sm font-bold shadow-md shadow-blue-200 flex items-center gap-1 sm:gap-2 transition-all hover:scale-105"
+                className="px-4 sm:px-6 py-2 bg-red-600 hover:bg-red-700 text-white rounded-full text-xs sm:text-sm font-bold shadow-md shadow-red-200 flex items-center gap-1 sm:gap-2 transition-all hover:scale-105"
               >
                 <Download size={14} /> PNG
               </button>
@@ -332,7 +332,7 @@ useEffect(() => {
                       ${
                         data.length >= MAX_CHARS
                           ? "border-2 border-red-400 bg-red-50 focus:ring-2 focus:ring-red-500"
-                          : "border-2 border-gray-200 bg-gray-50 focus:ring-2 focus:ring-blue-500"
+                          : "border-2 border-gray-200 bg-gray-50 focus:ring-2 focus:ring-red-500"
                       }
                     `}
                     placeholder="https://example.com"
@@ -373,7 +373,7 @@ useEffect(() => {
                       <label className="text-xs text-gray-500 mb-2 block">
                         Dots
                       </label>
-                      <div className="flex items-center gap-2 border-2 border-gray-200 p-3 rounded-lg hover:border-blue-400 transition-colors">
+                      <div className="flex items-center gap-2 border-2 border-gray-200 p-3 rounded-lg hover:border-red-400 transition-colors">
                         <input
                           type="color"
                           value={dotColor}
@@ -387,7 +387,7 @@ useEffect(() => {
                       <label className="text-xs text-gray-500 mb-2 block">
                         Background
                       </label>
-                      <div className="flex items-center gap-2 border-2 border-gray-200 p-3 rounded-lg hover:border-blue-400 transition-colors">
+                      <div className="flex items-center gap-2 border-2 border-gray-200 p-3 rounded-lg hover:border-red-400 transition-colors">
                         <input
                           type="color"
                           value={bgColor}
@@ -410,7 +410,7 @@ useEffect(() => {
                       type="checkbox"
                       checked={gradient}
                       onChange={(e) => setGradient(e.target.checked)}
-                      className="accent-blue-600 w-5 h-5 cursor-pointer"
+                      className="accent-red-600 w-5 h-5 cursor-pointer"
                     />
                   </label>
                   {gradient && (
@@ -418,7 +418,7 @@ useEffect(() => {
                       <label className="text-xs text-gray-500 mb-2 block">
                         Second Color
                       </label>
-                      <div className="flex items-center gap-2 border-2 border-gray-200 p-3 rounded-lg bg-white hover:border-blue-400 transition-colors">
+                      <div className="flex items-center gap-2 border-2 border-gray-200 p-3 rounded-lg bg-white hover:border-red-400 transition-colors">
                         <input
                           type="color"
                           value={gradientColor}
@@ -444,7 +444,7 @@ useEffect(() => {
                       <select
                         value={dotStyle}
                         onChange={(e) => setDotStyle(e.target.value)}
-                        className="w-full p-3 sm:p-2.5 bg-gray-50 border-2 border-gray-200 rounded-lg text-sm touch-manipulation focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                        className="w-full p-3 sm:p-2.5 bg-gray-50 border-2 border-gray-200 rounded-lg text-sm touch-manipulation focus:border-red-500 focus:ring-2 focus:ring-red-200"
                       >
                         <option value="square">Square</option>
                         <option value="dots">Dots</option>
@@ -460,7 +460,7 @@ useEffect(() => {
                       <select
                         value={eyeStyle}
                         onChange={(e) => setEyeStyle(e.target.value)}
-                        className="w-full p-3 sm:p-2.5 bg-gray-50 border-2 border-gray-200 rounded-lg text-sm touch-manipulation focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                        className="w-full p-3 sm:p-2.5 bg-gray-50 border-2 border-gray-200 rounded-lg text-sm touch-manipulation focus:border-red-500 focus:ring-2 focus:ring-red-200"
                       >
                         <option value="square">Square</option>
                         <option value="dot">Dot</option>
@@ -481,7 +481,7 @@ useEffect(() => {
                     onClick={() => setLogoMode("image")}
                     className={`flex-1 py-3 sm:py-2 rounded-lg text-sm font-semibold transition-colors touch-manipulation ${
                       logoMode === "image"
-                        ? "bg-blue-600 text-white shadow-md"
+                        ? "bg-red-600 text-white shadow-md"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                   >
@@ -491,7 +491,7 @@ useEffect(() => {
                     onClick={() => setLogoMode("text")}
                     className={`flex-1 py-3 sm:py-2 rounded-lg text-sm font-semibold transition-colors touch-manipulation ${
                       logoMode === "text"
-                        ? "bg-blue-600 text-white shadow-md"
+                        ? "bg-red-600 text-white shadow-md"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                   >
@@ -502,7 +502,7 @@ useEffect(() => {
                 {/* IMAGE LOGO */}
                 {logoMode === "image" && (
                   <>
-                    <label className="block w-full border-2 border-dashed border-gray-300 hover:border-blue-500 hover:bg-blue-50 transition-all rounded-xl p-6 sm:p-6 text-center cursor-pointer touch-manipulation active:scale-98">
+                    <label className="block w-full border-2 border-dashed border-gray-300 hover:border-red-500 hover:bg-red-50 transition-all rounded-xl p-6 sm:p-6 text-center cursor-pointer touch-manipulation active:scale-98">
                       <Upload className="mx-auto text-gray-400 mb-2" size={28} />
                       <span className="text-sm font-medium text-gray-600">
                         Upload Logo Image
@@ -547,7 +547,7 @@ useEffect(() => {
                         <input
                           value={logoText}
                           onChange={(e) => setLogoText(e.target.value.slice(0, 6))}
-                          className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 text-center font-bold uppercase text-base sm:text-sm touch-manipulation focus:border-blue-500 focus:ring-2 focus:ring-blue-200"
+                          className="w-full border-2 border-gray-200 rounded-lg px-4 py-3 text-center font-bold uppercase text-base sm:text-sm touch-manipulation focus:border-red-500 focus:ring-2 focus:ring-red-200"
                           placeholder="LOGO"
                           maxLength={6}
                         />
@@ -555,7 +555,7 @@ useEffect(() => {
                         <div className="grid grid-cols-2 gap-3 sm:gap-4">
                           <div>
                             <label className="text-xs text-gray-500 mb-2 block">Text Color</label>
-                            <div className="border-2 border-gray-200 p-3 rounded-lg hover:border-blue-400 transition-colors">
+                            <div className="border-2 border-gray-200 p-3 rounded-lg hover:border-red-400 transition-colors">
                               <input
                                 type="color"
                                 value={textColor}
@@ -566,7 +566,7 @@ useEffect(() => {
                           </div>
                           <div>
                             <label className="text-xs text-gray-500 mb-2 block">Background</label>
-                            <div className="border-2 border-gray-200 p-3 rounded-lg hover:border-blue-400 transition-colors">
+                            <div className="border-2 border-gray-200 p-3 rounded-lg hover:border-red-400 transition-colors">
                               <input
                                 type="color"
                                 value={textBg}
@@ -616,7 +616,7 @@ const NavButton = ({ active, onClick, icon, label }) => (
     onClick={onClick}
     className={`flex flex-col items-center justify-center w-16 h-12 sm:w-14 sm:h-12 md:w-14 md:h-14 rounded-xl transition-all duration-200 touch-manipulation ${
       active
-        ? "bg-blue-100 text-blue-600 shadow-sm"
+        ? "bg-red-100 text-red-600 shadow-sm"
         : "text-gray-400 hover:bg-gray-50 hover:text-gray-900"
     }`}
   >
@@ -640,7 +640,7 @@ const RangeSlider = ({ label, value, min, max, onChange, unit = "" }) => (
       max={max}
       value={value}
       onChange={onChange}
-      className="w-full h-2 sm:h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600 touch-manipulation"
+      className="w-full h-2 sm:h-1.5 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-red-600 touch-manipulation"
       style={{ touchAction: 'none' }}
     />
   </div>

@@ -94,11 +94,11 @@ export default function ImageCompressor() {
       
       {/* 1. LEFT SIDEBAR (Navigation) */}
       <div className="w-full md:w-20 bg-white border-r border-gray-200 flex md:flex-col items-center py-4 md:space-y-8 z-20 shadow-sm justify-between md:justify-start">
-        <div className="hidden md:block p-2 bg-gradient-to-br from-green-500 to-emerald-600 rounded-lg shadow-md">
+        <div className="hidden md:block p-2 bg-gradient-to-br from-red-500 to-emerald-600 rounded-lg shadow-md">
             <Minimize2 className="text-white w-6 h-6" />
         </div>
         <div className="flex md:flex-col gap-4">
-             <div className="w-12 h-12 flex items-center justify-center text-green-600 bg-green-50 rounded-xl">
+             <div className="w-12 h-12 flex items-center justify-center text-red-600 bg-red-50 rounded-xl">
                 <ImageIcon size={24} />
              </div>
         </div>
@@ -249,7 +249,7 @@ export default function ImageCompressor() {
                             <button 
                                 onClick={compressImage}
                                 disabled={loading}
-                                className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold shadow-lg shadow-blue-200 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
+                                className="w-full py-4 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold shadow-lg shadow-red-200 flex items-center justify-center gap-2 transition-all active:scale-95 disabled:opacity-50"
                             >
                                 {loading ? <Loader2 className="animate-spin" /> : <Minimize2 />}
                                 {loading ? "Compressing..." : "Compress Image"}

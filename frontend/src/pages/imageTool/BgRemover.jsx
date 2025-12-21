@@ -7,8 +7,8 @@ import {
   PaintBucket,
   RefreshCcw,
 } from "lucide-react";
-
-const BG_API = "http://10.158.178.3:5000/remove-bg";
+import { BASE_URL } from "../../utils/api";
+const BG_API = `${BASE_URL}/remove-bg`;
 
 export default function BgRemover() {
   const [file, setFile] = useState(null);
