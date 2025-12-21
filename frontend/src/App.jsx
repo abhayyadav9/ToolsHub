@@ -4,6 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import PdfSplit from "./pages/pdf/PdfSplit";
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./components/Home"));
@@ -78,7 +79,7 @@ function App() {
             <Route path="/tools/word-to-pdf" element={<WordToPdf />} />
             <Route path="/tools/merge-pdf" element={<MergePdf />} />
             <Route path="/tools/compress-pdf" element={<CompressPdf />} />
-            <Route path="/tools/split-pdf" element={<UnderDevelopment />} />
+            <Route path="/tools/split-pdf" element={<PdfSplit />} />
             <Route path="/tools/pdf-ocr" element={<UnderDevelopment />} />
             <Route path="/tools/protect-pdf" element={<UnderDevelopment />} />
             <Route path="/tools/unlock-pdf" element={<UnderDevelopment />} />

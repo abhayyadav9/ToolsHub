@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import routes from "./routes/image.route.js";
 import errorHandler from "./middlewares/error.middleware.js";
+import pdfRouter from "./routes/pdf.route.js";
 
 const app = express();
 
@@ -11,6 +12,7 @@ app.use(helmet());
 app.use(express.json());
 
 app.use("/api/image", routes);
+app.use("/api/pdf", pdfRouter);
 
 app.get("/status", (req, res) => {
   res.status(200).json({ status: "Server is up and running!" });
