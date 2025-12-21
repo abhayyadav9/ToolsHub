@@ -14,7 +14,7 @@ import {
   FileBarChart
 } from "lucide-react";
 
-const API_URL = "http://localhost:3000/api/image/compress";
+const API_URL = "https://toolshub-kg7q.onrender.com/api/image/compress";
 
 /* ----------------------------------------------------------------------------------
    HELPER: FORMAT BYTES

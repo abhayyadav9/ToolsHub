@@ -13,7 +13,7 @@ import {
   FileImage
 } from "lucide-react";
 
-const API_URL = "http://localhost:3000/api/image/convert";
+const API_URL = "https://toolshub-kg7q.onrender.com/api/image/convert";
 
 const FORMAT_OPTIONS = [
   { value: "jpg", label: "JPG", desc: "Best for photos" },
