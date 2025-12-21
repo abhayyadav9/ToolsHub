@@ -7,7 +7,8 @@ import {
   HardDrive,
   Loader2,
 } from "lucide-react";
-import { wordToPdf } from "../../utils/api";
+import { wordToPdf,BASE_URL } from "../../utils/api";
+import axios from "axios";
 
 export default function WordToPdf() {
   const [files, setFiles] = useState([]);
@@ -41,30 +42,56 @@ export default function WordToPdf() {
   };
 
   // ---------------- CONVERT ----------------
-  const handleConvert = async () => {
-    if (!files.length) return;
+ const handleConvert = async () => {
+  if (!files.length) return;
 
-    try {
-      setLoading(true);
+  const formData = new FormData();
+  formData.append("file", files[0]);
 
-      const blob = await wordToPdf(files);
+  try {
+    setLoading(true);
 
-      const url = window.URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "converted.pdf";
-      document.body.appendChild(a);
-      a.click();
+    const res = await axios.post(
+      `${API_BASE}/pdf/convert-to-pdf`,
+      formData,
+      {
+        responseType: "blob",
+      }
+    );
 
-      a.remove();
-      window.URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error(err);
-      alert("Word to PDF conversion failed");
-    } finally {
-      setLoading(false);
+    // ✅ SUCCESS → download PDF
+    const url = window.URL.createObjectURL(res.data);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "converted.pdf";
+    document.body.appendChild(a);
+    a.click();
+
+    a.remove();
+    window.URL.revokeObjectURL(url);
+
+  } catch (err) {
+    // 🔥 IMPORTANT: decode blob error
+    if (err.response && err.response.data) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        try {
+          const json = JSON.parse(reader.result);
+          alert(json.error || "Conversion failed");
+          console.error("Backend error:", json);
+        } catch {
+          alert("Conversion failed (unknown error)");
+        }
+      };
+      reader.readAsText(err.response.data);
+    } else {
+      alert("Network or server error");
     }
-  };
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <section className="bg-gray-50 min-h-[90vh] flex items-center justify-center">
