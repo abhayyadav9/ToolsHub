@@ -219,7 +219,7 @@ useEffect(() => {
   ---------------------------------------------------------------------------------- */
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col font-sans">
+    <div className="min-h-[60vh] bg-gray-100 text-gray-800 flex flex-col font-sans">
       {/* 1. TOP NAVIGATION (Mobile) / LEFT SIDEBAR (Desktop) */}
       <div className="w-full md:w-20 bg-white border-b md:border-r md:border-b-0 border-gray-200 flex md:flex-col items-center justify-between md:justify-start py-3 px-4 md:px-0 md:py-4 md:space-y-8 md:fixed md:left-0 md:top-0 md:h-full z-30 shadow-sm">
         <div className="hidden md:block p-2 bg-gradient-to-br from-red-500 to-indigo-600 rounded-lg shadow-md">
