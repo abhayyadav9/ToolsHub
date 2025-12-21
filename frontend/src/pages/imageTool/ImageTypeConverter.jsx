@@ -12,8 +12,8 @@ import {
   CheckCircle,
   FileImage
 } from "lucide-react";
+import { CONVERT_URL } from "../../utils/nodeApi";
 
-const API_URL = "https://toolshub-kg7q.onrender.com/api/image/convert";
 
 const FORMAT_OPTIONS = [
   { value: "jpg", label: "JPG", desc: "Best for photos" },
@@ -49,7 +49,7 @@ export default function ImageTypeConverter() {
     try {
       setLoading(true);
       // Simulate API call or Real API call
-      const res = await axios.post(API_URL, formData, {
+      const res = await axios.post(CONVERT_URL, formData, {
         responseType: "blob",
       });
 

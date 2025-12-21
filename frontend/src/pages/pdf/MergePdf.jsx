@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import { FileText, X, Loader2, Plus, ArrowRight } from "lucide-react";
-
-const API_BASE = "https://api.toolshub.me";
+import { BASE_URL } from "../../utils/api";
 
 export default function MergePdf() {
   const [files, setFiles] = useState([]);
@@ -61,7 +60,7 @@ export default function MergePdf() {
     try {
       setLoading(true);
 
-      const res = await axios.post(`${API_BASE}/pdf/merge`, formData, {
+      const res = await axios.post(`${BASE_URL}/pdf/merge`, formData, {
         responseType: "blob",
         timeout: 300000,
       });
