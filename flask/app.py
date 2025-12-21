@@ -56,23 +56,26 @@ def remove_bg():
     file = request.files["image"]
 
     try:
-        # Read image
         input_image = Image.open(file.stream).convert("RGBA")
-
-        # Remove background
         output_image = remove(input_image)
 
-        # Save to memory
         img_io = io.BytesIO()
         output_image.save(img_io, format="PNG")
         img_io.seek(0)
 
-        return send_file(
+        response = send_file(
             img_io,
             mimetype="image/png",
             as_attachment=True,
             download_name="bg-removed.png"
         )
+
+        # ✅ REQUIRED CORS HEADERS
+        response.headers["Access-Control-Allow-Origin"] = "*"
+        response.headers["Access-Control-Allow-Headers"] = "Content-Type"
+        response.headers["Access-Control-Allow-Methods"] = "POST, OPTIONS"
+
+        return response
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500

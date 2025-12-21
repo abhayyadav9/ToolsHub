@@ -42,7 +42,7 @@ export default function WordToPdf() {
   };
 
   // ---------------- CONVERT ----------------
- const handleConvert = async () => {
+const handleConvert = async () => {
   if (!files.length) return;
 
   const formData = new FormData();
@@ -52,26 +52,21 @@ export default function WordToPdf() {
     setLoading(true);
 
     const res = await axios.post(
-      `${API_BASE}/pdf/convert-to-pdf`,
+      `${BASE_URL}/pdf/convert-to-pdf`,
       formData,
-      {
-        responseType: "blob",
-      }
+      { responseType: "blob" }
     );
 
-    // ✅ SUCCESS → download PDF
     const url = window.URL.createObjectURL(res.data);
     const a = document.createElement("a");
     a.href = url;
     a.download = "converted.pdf";
     document.body.appendChild(a);
     a.click();
-
     a.remove();
     window.URL.revokeObjectURL(url);
 
   } catch (err) {
-    // 🔥 IMPORTANT: decode blob error
     if (err.response && err.response.data) {
       const reader = new FileReader();
       reader.onload = () => {
@@ -91,6 +86,7 @@ export default function WordToPdf() {
     setLoading(false);
   }
 };
+
 
 
   return (
