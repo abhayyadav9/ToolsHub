@@ -154,12 +154,14 @@ def word_to_pdf():
     final_path = os.path.join(TMP_DIR, output_name)
 
     cmd = [
-        get_libreoffice(),
-        "--headless",
-        "--convert-to", "pdf",
-        "--outdir", TMP_DIR,
-        temp_input
+    get_libreoffice(),
+    "--headless",
+    f"-env:UserInstallation=file:///tmp/libreoffice-profile",
+    "--convert-to", "pdf",
+    "--outdir", TMP_DIR,
+    temp_input
     ]
+
 
     try:
         result = subprocess.run(
