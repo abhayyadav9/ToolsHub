@@ -1,8 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Upload, Download, Loader2, PaintBucket, RefreshCcw } from "lucide-react";
+import {
+  Upload,
+  Download,
+  Loader2,
+  PaintBucket,
+  RefreshCcw,
+} from "lucide-react";
 
-const BG_API = "https://api.toolshub.me/remove-bg"; // change this
+const BG_API = "http://10.158.178.3:5000/remove-bg";
 
 export default function BgRemover() {
   const [file, setFile] = useState(null);
@@ -26,32 +32,42 @@ export default function BgRemover() {
     if (!file) return;
 
     const formData = new FormData();
-    formData.append("image", file);
+    formData.append("image", file); // ✅ MATCHES BACKEND
 
     try {
       setLoading(true);
 
       const res = await axios.post(BG_API, formData, {
         responseType: "blob",
+        timeout: 180000, // ✅ 3 MINUTES (CRITICAL)
       });
 
-      const url = URL.createObjectURL(res.data);
-      setResultUrl(url);
+      const blobUrl = URL.createObjectURL(res.data);
+      setResultUrl(blobUrl);
     } catch (err) {
       console.error(err);
-      alert("Background removal failed");
+
+      if (err.code === "ECONNABORTED") {
+        alert("Processing took too long. Try a smaller image.");
+      } else if (err.response?.data) {
+        alert("Background removal failed.");
+      } else {
+        alert("Network error.");
+      }
     } finally {
       setLoading(false);
     }
   };
 
-  /* -------- Download -------- */
+  /* -------- Download with BG Color -------- */
   const downloadImage = async () => {
+    if (!resultUrl) return;
+
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = resultUrl;
 
-    await new Promise((r) => (img.onload = r));
+    await new Promise((resolve) => (img.onload = resolve));
 
     const canvas = document.createElement("canvas");
     canvas.width = img.width;
@@ -72,12 +88,8 @@ export default function BgRemover() {
   return (
     <div className="min-h-screen bg-[#F4F5F7] flex justify-center p-6">
       <div className="w-full max-w-6xl bg-white rounded-2xl shadow-xl p-6">
+        <h1 className="text-2xl font-bold mb-6">Remove Image Background</h1>
 
-        <h1 className="text-2xl font-bold mb-6">
-          Remove Image Background
-        </h1>
-
-        {/* Upload */}
         {!originalUrl && (
           <label className="border-2 border-dashed border-gray-300 rounded-xl h-64 flex flex-col items-center justify-center cursor-pointer hover:bg-gray-50">
             <Upload className="w-10 h-10 text-gray-400" />
@@ -88,45 +100,30 @@ export default function BgRemover() {
           </label>
         )}
 
-        {/* Preview */}
         {originalUrl && (
           <div className="grid md:grid-cols-2 gap-6 mt-6">
-            {/* Original */}
             <div>
               <p className="font-semibold mb-2">Original</p>
-              <img
-                src={originalUrl}
-                className="rounded-xl shadow max-h-96 mx-auto"
-              />
+              <img src={originalUrl} className="rounded-xl shadow max-h-96 mx-auto" />
             </div>
 
-            {/* Result */}
             <div>
               <p className="font-semibold mb-2">Result</p>
-
               <div
                 className="rounded-xl shadow p-4 flex justify-center"
                 style={{ backgroundColor: bgColor }}
               >
                 {resultUrl ? (
-                  <img
-                    src={resultUrl}
-                    className="max-h-96"
-                  />
+                  <img src={resultUrl} className="max-h-96" />
                 ) : (
-                  <div className="text-gray-400">
-                    Result will appear here
-                  </div>
+                  <div className="text-gray-400">Result will appear here</div>
                 )}
               </div>
 
-              {/* BG Color */}
               {resultUrl && (
                 <div className="flex items-center gap-3 mt-4">
                   <PaintBucket />
-                  <span className="text-sm font-medium">
-                    Background Color
-                  </span>
+                  <span className="text-sm font-medium">Background Color</span>
                   <input
                     type="color"
                     value={bgColor}
@@ -138,7 +135,6 @@ export default function BgRemover() {
           </div>
         )}
 
-        {/* Actions */}
         {file && (
           <div className="flex gap-4 mt-8">
             {!resultUrl ? (

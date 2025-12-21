@@ -13,6 +13,8 @@ import {
   Scissors,
   Minimize,
   ArrowRightLeft,
+  ChartNoAxesGanttIcon,
+  QrCodeIcon,
 } from "lucide-react";
 import image1 from "../assets/image1.png";
 import image from "../assets/image.png";
@@ -34,10 +36,10 @@ export default function Navbar() {
   ];
 
   const imageTools = [
-    { name: "Compress Image", href: "/tools/compress-image", icon: ImageIcon },
-    { name: "Image Type Converter", href: "/tools/image-type-converter", icon: ImageIcon },
-    { name: "Crop Image", href: "/tools/crop-image", icon: ImageIcon },
-    { name: "QR Code Generator", href: "/tools/qr-generator", icon: ImageIcon },
+    { name: "Compress Image", href: "/tools/compress-image", icon: Minimize },
+    { name: "Image Type Converter", href: "/tools/image-type-converter", icon: ChartNoAxesGanttIcon },
+    { name: "Crop Image", href: "/tools/crop-image", icon: Scissors },
+    { name: "QR Code Generator", href: "/tools/qr-generator", icon: QrCodeIcon },
     { name: "Background Remover", href: "/tools/bg-remover", icon: ImageIcon },
   ];
 
@@ -155,7 +157,7 @@ export default function Navbar() {
     <div
       className="
         absolute top-full mt-3 w-72
-        right-0   /* 👈 THIS is the magic */
+        left-0
         bg-white rounded-xl shadow-2xl
         border border-gray-100 overflow-hidden z-50
         animate-in fade-in slide-in-from-top-2 duration-200
@@ -164,14 +166,15 @@ export default function Navbar() {
       {/* Decorative Red Line */}
       <div className="h-1 w-full bg-gradient-to-r from-red-500 to-orange-500" />
 
-      <div className="p-3 grid gap-1">
+      <div className=" grid gap-1">
         {imageTools.map((tool) => (
           <Link
             key={tool.name}
             to={tool.href}
-            className="block px-4 py-3 rounded-lg text-sm font-medium
-              text-gray-600 hover:bg-red-50 hover:text-red-600 transition-colors"
+            className="flex items-center gap-1 px-2 py-3 rounded-lg text-base font-medium
+              text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors"
           >
+            <tool.icon size={18} className="flex-shrink-0" />
             {tool.name}
           </Link>
         ))}
@@ -191,7 +194,7 @@ export default function Navbar() {
                 <span className="font-bold">Tools</span>
               </div>
               {activeDropdown === "mega" && (
-                <div className="fixed right-8 top-16 w-full bg-white shadow-2xl border-t animate-dropdown">
+                <div className="fixed right-2 top-16 w-full bg-white shadow-2xl border-t animate-dropdown">
                   <div className="max-w-7xl mx-auto grid grid-cols-4 gap-10 px-8 py-10">
                     {megaMenu.map((cat) => (
                       <div key={cat.title}>
