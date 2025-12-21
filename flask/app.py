@@ -97,7 +97,7 @@ def base_name(filename):
     return os.path.splitext(filename)[0]
 
 def get_libreoffice():
-    return "soffice"
+    return "/usr/bin/soffice"
 
 def get_ghostscript():
     return "/usr/bin/gs"
