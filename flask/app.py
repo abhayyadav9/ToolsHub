@@ -156,11 +156,17 @@ def word_to_pdf():
     cmd = [
     get_libreoffice(),
     "--headless",
+    "--nologo",
+    "--nodefault",
+    "--nolockcheck",
+    "--norestore",
+    "--invisible",
     f"-env:UserInstallation=file:///tmp/libreoffice-profile",
     "--convert-to", "pdf",
     "--outdir", TMP_DIR,
     temp_input
-    ]
+]
+
 
 
     try:
