@@ -100,7 +100,7 @@ def get_libreoffice():
     return "soffice"
 
 def get_ghostscript():
-    return "gswin64c" if platform.system() == "Windows" else "gs"
+    return "/usr/bin/gs"
 
 # -------------------------------------------------
 # HEALTH
