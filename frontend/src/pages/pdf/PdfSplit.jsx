@@ -16,6 +16,8 @@ import { clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 import { SPLIT_PDF_URL } from "../../utils/nodeApi";
+import EnhancedSEO from "../../seo/EnhancedSEO";
+import { getToolMetadata, generateBreadcrumbs } from "../../config/seoConfig";
 
 /* ---------- Utility ---------- */
 function cn(...inputs) {
@@ -23,6 +25,10 @@ function cn(...inputs) {
 }
 
 export default function PdfSplit() {
+  /* ---------- SEO Data ---------- */
+  const toolMetadata = getToolMetadata('split-pdf');
+  const breadcrumbs = generateBreadcrumbs('split-pdf');
+
   /* ---------- State ---------- */
   const [file, setFile] = useState(null);
   const [splitAt, setSplitAt] = useState("");
@@ -147,7 +153,18 @@ export default function PdfSplit() {
 
   /* ---------- Render ---------- */
   return (
-    <div className="min-h-screen bg-slate-50 flex mb-10 items-center justify-center mt-4 font-sans text-slate-900">
+    <>
+      <EnhancedSEO
+        title={toolMetadata?.title || "Split PDF"}
+        description={toolMetadata?.description}
+        keywords={toolMetadata?.keywords}
+        canonical="/tools/split-pdf"
+        toolName={toolMetadata?.name}
+        toolCategory="Splitter"
+        faqs={toolMetadata?.faqs}
+        breadcrumbs={breadcrumbs}
+      />
+      <div className="min-h-screen bg-slate-50 flex mb-10 items-center justify-center mt-4 font-sans text-slate-900">
       <div className="w-full max-w-4xl bg-white rounded-3xl shadow-xl overflow-hidden ring-1 ring-slate-900/5 transition-all duration-300">
         
         {/* HEADER */}
@@ -359,5 +376,7 @@ export default function PdfSplit() {
         </div>
       </div>
     </div>
+    </>
   );
 }
+

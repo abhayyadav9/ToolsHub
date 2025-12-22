@@ -15,6 +15,8 @@ import {
   ArrowRightLeft,
   ChartNoAxesGanttIcon,
   QrCodeIcon,
+  ShieldCheck,
+  UnlockIcon,
 } from "lucide-react";
 import image1 from "../assets/image1.png";
 import image from "../assets/image.png";
@@ -33,15 +35,30 @@ export default function Navbar() {
     { name: "PDF to Word", href: "/tools/pdf-to-word", icon: ArrowRightLeft },
     { name: "Word to PDF", href: "/tools/word-to-pdf", icon: FileText },
     { name: "Split PDF", href: "/tools/split-pdf", icon: Scissors },
-    { name: "Convert Any to PDF", href: "/tools/convert-any-to-pdf", icon: FileText },
+    {
+      name: "Convert Any to PDF",
+      href: "/tools/convert-any-to-pdf",
+      icon: FileText,
+    },
+    { name: "Protect PDF", href: "/tools/protect-pdf", icon: ShieldCheck },
+    { name: "Unlock PDF", href: "/tools/unlock-pdf", icon: UnlockIcon },
   ];
 
   const imageTools = [
     { name: "Compress Image", href: "/tools/compress-image", icon: Minimize },
-    { name: "Image Type Converter", href: "/tools/image-type-converter", icon: ChartNoAxesGanttIcon },
+    {
+      name: "Image Type Converter",
+      href: "/tools/image-type-converter",
+      icon: ChartNoAxesGanttIcon,
+    },
     { name: "Crop Image", href: "/tools/crop-image", icon: Scissors },
-    { name: "QR Code Generator", href: "/tools/qr-generator", icon: QrCodeIcon },
+    {
+      name: "QR Code Generator",
+      href: "/tools/qr-generator",
+      icon: QrCodeIcon,
+    },
     { name: "Background Remover", href: "/tools/bg-remover", icon: ImageIcon },
+    { name: "Images to PDF", href: "/tools/images-to-pdf", icon: FileText },
   ];
 
   const megaMenu = [
@@ -132,57 +149,57 @@ export default function Navbar() {
             </div>
 
             {/* IMAGE DROPDOWN */}
-<div
-  className="relative"
-  onMouseEnter={() => openDropdown("image")}
-  onMouseLeave={closeDropdown}
->
-  <button 
-    className={`flex items-center gap-1 text-sm font-bold transition-colors duration-200 ${
-      activeDropdown === "image"
-        ? "text-red-500"
-        : "text-gray-700 hover:text-red-500"
-    }`}
-  >
-    IMAGE TOOLS
-    <ChevronDown
-      size={14}
-      strokeWidth={3}
-      className={`transition-transform duration-200 ${
-        activeDropdown === "image" ? "rotate-180" : ""
-      }`}
-    />
-  </button>
+            <div
+              className="relative"
+              onMouseEnter={() => openDropdown("image")}
+              onMouseLeave={closeDropdown}
+            >
+              <button
+                className={`flex items-center gap-1 text-sm font-bold transition-colors duration-200 ${
+                  activeDropdown === "image"
+                    ? "text-red-500"
+                    : "text-gray-700 hover:text-red-500"
+                }`}
+              >
+                IMAGE TOOLS
+                <ChevronDown
+                  size={14}
+                  strokeWidth={3}
+                  className={`transition-transform duration-200 ${
+                    activeDropdown === "image" ? "rotate-180" : ""
+                  }`}
+                />
+              </button>
 
-  {activeDropdown === "image" && (
-    <div
-      className="
+              {activeDropdown === "image" && (
+                <div
+                  className="
         absolute top-full mt-3 w-72
         left-0
         bg-white rounded-xl shadow-2xl
         border border-gray-100 overflow-hidden z-50
         animate-in fade-in slide-in-from-top-2 duration-200
       "
-    >
-      {/* Decorative Red Line */}
-      <div className="h-1 w-full bg-gradient-to-r from-red-500 to-orange-500" />
+                >
+                  {/* Decorative Red Line */}
+                  <div className="h-1 w-full bg-gradient-to-r from-red-500 to-orange-500" />
 
-      <div className=" grid gap-1">
-        {imageTools.map((tool) => (
-          <Link
-            key={tool.name}
-            to={tool.href}
-            className="flex items-center gap-1 px-2 py-3 rounded-lg text-base font-medium
+                  <div className=" grid">
+                    {imageTools.map((tool) => (
+                      <Link
+                        key={tool.name}
+                        to={tool.href}
+                        className="flex items-center  px-2 py-3 rounded-lg text-base font-medium
               text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors"
-          >
-            <tool.icon size={18} className="flex-shrink-0" />
-            {tool.name}
-          </Link>
-        ))}
-      </div>
-    </div>
-  )}
-</div>
+                      >
+                        <tool.icon size={18} className="flex-shrink-0" />
+                        {tool.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* MEGA MENU */}
             <div

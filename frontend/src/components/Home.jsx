@@ -14,6 +14,8 @@ import {
 } from 'lucide-react';
 import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import SEOHelmet from '../seo/SEOHelment';
+import EnhancedSEO from '../seo/EnhancedSEO';
+import { siteConfig } from '../config/seoConfig';
 
 // Animated Counter Component for Stats
 const Counter = ({ value, label }) => {
@@ -172,7 +174,15 @@ const Home = () => {
   };
 
   return (
-    <div className="overflow-hidden">
+    <>
+      <EnhancedSEO
+        title="Free Online Tools for PDF, Images, Video & More | ToolsHub"
+        description="Convert PDFs, edit images, compress files, and process videos for free. 24+ professional tools. No registration required, 100% secure."
+        keywords={['free online tools', 'pdf converter', 'image editor', 'video converter', 'document converter', 'file converter']}
+        canonical="/"
+        ogImage="/og-image.jpg"
+      />
+      <div className="overflow-hidden">
       <SEOHelmet
         title="Free Online PDF Tools & More - ToolsHub"
         description="Convert PDF to Word, merge PDFs, compress files, and more with our free online tools."
@@ -411,6 +421,7 @@ const Home = () => {
         </div>
       </motion.section>
     </div>
+    </>
   );
 };
 

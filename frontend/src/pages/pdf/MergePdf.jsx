@@ -2,8 +2,12 @@ import { useState, useRef } from "react";
 import axios from "axios";
 import { FileText, X, Loader2, Plus, ArrowRight } from "lucide-react";
 import { BASE_URL } from "../../utils/api";
+import EnhancedSEO from "../../seo/EnhancedSEO";
+import { getToolMetadata, generateBreadcrumbs } from "../../config/seoConfig";
 
 export default function MergePdf() {
+  const toolMetadata = getToolMetadata('merge-pdf');
+  const breadcrumbs = generateBreadcrumbs('merge-pdf');
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -97,7 +101,18 @@ export default function MergePdf() {
 
   // ---------------- UI ----------------
   return (
-    <div className="min-h-screen bg-[#F4F5F7] flex flex-col">
+    <>
+      <EnhancedSEO
+        title={toolMetadata?.title || "Merge PDF Files"}
+        description={toolMetadata?.description}
+        keywords={toolMetadata?.keywords}
+        canonical="/tools/merge-pdf"
+        toolName={toolMetadata?.name}
+        toolCategory="Merger"
+        faqs={toolMetadata?.faqs}
+        breadcrumbs={breadcrumbs}
+      />
+      <div className="min-h-screen bg-[#F4F5F7] flex flex-col">
       {/* HEADER */}
 
       <section className="bg-gray-50  mt-24 flex items-center justify-center">
@@ -242,6 +257,7 @@ export default function MergePdf() {
         className="hidden"
         onChange={(e) => handleFiles(e.target.files)}
       />
-    </div>
+      </div>
+    </>
   );
 }

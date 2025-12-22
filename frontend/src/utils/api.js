@@ -25,6 +25,11 @@ const uploadPdf = async (url, files) => {
 
 /* ===================== PDF APIs ===================== */
 
+export const IMAGE_TO_PDF_URL = `${BASE_URL}/pdf/images-to-pdf`;
+export const PDF_DECRYPT_URL = `${BASE_URL}/pdf/decrypt`;
+export const PDF_ENCRYPT_URL = `${BASE_URL}/pdf/encrypt`;
+
+
 export const mergePdf = (files) =>
   uploadPdf(`${BASE_URL}/pdf/merge`, files);
 

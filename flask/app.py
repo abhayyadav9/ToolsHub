@@ -9,6 +9,10 @@ from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 
+from controller.pdfEncryption import encrypt_pdf_file   # if in separate file
+from controller.pdfEncryption import decrypt_pdf_file   # if 
+from controller.images_to_pdf import images_to_pdf  
+
 
 from pdf2docx import Converter
 from pypdf import PdfReader, PdfWriter
@@ -392,6 +396,92 @@ def compress_pdf():
 
     delete_later(output_path)
     return resp
+
+
+
+#  pdf encryption
+
+@app.route("/pdf/encrypt", methods=["POST"])
+def encrypt_pdf_api():
+    if "file" not in request.files:
+        return jsonify({"error": "No PDF file provided"}), 400
+
+    password = request.form.get("password")
+    if not password:
+        return jsonify({"error": "Password is required"}), 400
+
+    try:
+        pdf_file = request.files["file"]
+
+        encrypted_pdf = encrypt_pdf_file(pdf_file, password)
+
+        return send_file(
+            encrypted_pdf,
+            as_attachment=True,
+            mimetype="application/pdf",
+            download_name="encrypted.pdf"
+        )
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+
+# pdf decryption
+
+
+@app.route("/pdf/decrypt", methods=["POST"])
+def decrypt_pdf_api():
+    print("Received request for PDF decryption")
+    if "file" not in request.files:
+        return jsonify({"error": "No PDF file provided"}), 400
+
+    password = request.form.get("password")
+    if not password:
+        return jsonify({"error": "Password is required"}), 400
+
+    try:
+        pdf_file = request.files["file"]
+
+        decrypted_pdf = decrypt_pdf_file(pdf_file, password)
+
+        return send_file(
+            decrypted_pdf,
+            as_attachment=True,
+            mimetype="application/pdf",
+            download_name="decrypted.pdf"
+        )
+
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 401
+
+    except Exception as e:
+        return jsonify({"error": "Failed to decrypt PDF"}), 500
+
+
+
+# image to pdf conversion
+
+@app.route("/pdf/images-to-pdf", methods=["POST"])
+def images_to_pdf_api():
+    if "images" not in request.files:
+        return jsonify({"error": "No images provided"}), 400
+
+    try:
+        image_files = request.files.getlist("images")
+
+        pdf_file = images_to_pdf(image_files)
+
+        return send_file(
+            pdf_file,
+            as_attachment=True,
+            mimetype="application/pdf",
+            download_name="images.pdf"
+        )
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 # -------------------------------------------------
 # RUN

@@ -821,7 +821,8 @@ export const generateBreadcrumbs = (toolSlug) => {
   const tool = getToolMetadata(toolSlug);
   if (!tool) return [];
 
-  const category = Object.values(categories).find(cat => cat.slug === tool.category);
+  const category = categories[tool.category];
+  if (!category) return [];
   
   return [
     { name: 'Home', url: 'https://toolshub.me' },

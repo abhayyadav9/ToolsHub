@@ -11,6 +11,9 @@ import {
   Settings,
   Check,
 } from "lucide-react";
+import EnhancedSEO from "../../seo/EnhancedSEO";
+import { getToolMetadata, generateBreadcrumbs } from "../../config/seoConfig";
+
 
 /* ----------------------------------------------------------------------------------
    HELPER: PROCESS LOGO (Apply Brightness/Contrast)
@@ -73,6 +76,8 @@ const generateTextLogo = (text, color, bg, size = 300) => {
 
 
 export default function QrGenerator() {
+  const toolMetadata = getToolMetadata('qr-generator');
+  const breadcrumbs = generateBreadcrumbs('qr-generator');
   const ref = useRef(null);
   const [activeTab, setActiveTab] = useState("content"); // content | style | logo
 
@@ -219,7 +224,18 @@ useEffect(() => {
   ---------------------------------------------------------------------------------- */
 
   return (
-    <div className="min-h-[60vh] bg-gray-100 text-gray-800 flex flex-col font-sans">
+    <>
+      <EnhancedSEO
+        title={toolMetadata?.title || "QR Code Generator"}
+        description={toolMetadata?.description}
+        keywords={toolMetadata?.keywords}
+        canonical="/tools/qr-generator"
+        toolName={toolMetadata?.name}
+        toolCategory="Generator"
+        faqs={toolMetadata?.faqs}
+        breadcrumbs={breadcrumbs}
+      />
+      <div className="min-h-[60vh] bg-gray-100 text-gray-800 flex flex-col font-sans">
       {/* 1. TOP NAVIGATION (Mobile) / LEFT SIDEBAR (Desktop) */}
       <div className="w-full md:w-20 bg-white border-b md:border-r md:border-b-0 border-gray-200 flex md:flex-col items-center justify-between md:justify-start py-3 px-4 md:px-0 md:py-4 md:space-y-8 md:fixed md:left-0 md:top-0 md:h-full z-30 shadow-sm">
         <div className="hidden md:block p-2 bg-gradient-to-br from-red-500 to-indigo-600 rounded-lg shadow-md">
@@ -605,6 +621,7 @@ useEffect(() => {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

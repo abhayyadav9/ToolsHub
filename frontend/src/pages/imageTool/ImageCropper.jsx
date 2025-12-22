@@ -18,6 +18,8 @@ import {
   Monitor,
   Square
 } from "lucide-react";
+import EnhancedSEO from "../../seo/EnhancedSEO";
+import { getToolMetadata, generateBreadcrumbs } from "../../config/seoConfig";
 
 /* ----------------------------------------------------------------------------------
    HELPER: CANVAS PROCESSING
@@ -127,6 +129,8 @@ async function getCroppedImg(
    MAIN COMPONENT
 ---------------------------------------------------------------------------------- */
 export default function ProImageEditor() {
+  const toolMetadata = getToolMetadata('crop-image');
+  const breadcrumbs = generateBreadcrumbs('crop-image');
   const [imageSrc, setImageSrc] = useState(null);
   const [activeTab, setActiveTab] = useState("crop"); // 'crop' | 'adjust'
   
@@ -236,7 +240,18 @@ export default function ProImageEditor() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col md:flex-row overflow-hidden">
+    <>
+      <EnhancedSEO
+        title={toolMetadata?.title || "Crop Image"}
+        description={toolMetadata?.description}
+        keywords={toolMetadata?.keywords}
+        canonical="/tools/crop-image"
+        toolName={toolMetadata?.name}
+        toolCategory="Editor"
+        faqs={toolMetadata?.faqs}
+        breadcrumbs={breadcrumbs}
+      />
+      <div className="min-h-screen bg-gray-100 text-gray-800 flex flex-col md:flex-row overflow-hidden">
       
       {/* 1. LEFT SIDEBAR (Navigation) */}
       <div className="w-full md:w-20 bg-white border-r border-gray-200 flex md:flex-col items-center justify-between md:justify-start py-4 md:space-y-8 z-20 shadow-sm">
@@ -418,6 +433,7 @@ export default function ProImageEditor() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 

@@ -1,0 +1,37 @@
+OG Image Configuration
+======================
+
+REQUIRED: Create og-image.jpg in this directory
+
+Recommended Specifications:
+- Dimensions: 1200px × 630px (16:9 aspect ratio for social media)
+- Format: JPG or PNG
+- File size: < 100KB for fast loading
+- Content: Include:
+  * ToolsHub logo
+  * Main branding colors (orange/red gradient)
+  * Text: "ToolsHub - Free Online Tools"
+  * Subtitle: "Convert • Edit • Process Files"
+
+Usage:
+- Referenced in index.html as og-image.png
+- Used for social media sharing (Facebook, Twitter, LinkedIn)
+- Improves click-through rates on social platforms
+
+Tools to create:
+1. Canva (canva.com) - Design templates available
+2. Adobe Express - Quick design tool
+3. Figma - Professional design
+4. ImageMagick - Command line tool
+
+Template Suggestion:
+- Background: Gradient (orange #FF6B35 to red #D62828)
+- Logo: ToolsHub icon/text in white
+- Icons: Small representation of tools (PDF, Image, Video, etc.)
+- Border: Subtle white padding
+
+Current Reference in index.html:
+<meta property="og:image" content="https://www.toolshub.me/og-image.png" />
+<meta name="twitter:image" content="https://www.toolshub.me/og-image.png" />
+
+Replace og-image.png with og-image.jpg once created.

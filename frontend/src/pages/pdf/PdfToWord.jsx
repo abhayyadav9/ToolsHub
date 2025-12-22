@@ -8,8 +8,12 @@ import {
   Loader2,
 } from "lucide-react";
 import { pdfToWord } from "../../utils/api";
+import EnhancedSEO from "../../seo/EnhancedSEO";
+import { getToolMetadata, generateBreadcrumbs } from "../../config/seoConfig";
 
 export default function PdfToWord() {
+  const toolMetadata = getToolMetadata('pdf-to-word');
+  const breadcrumbs = generateBreadcrumbs('pdf-to-word');
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -48,7 +52,18 @@ export default function PdfToWord() {
   };
 
   return (
-    <section className="bg-gray-50 min-h-[90vh] flex items-center justify-center">
+    <>
+      <EnhancedSEO
+        title={toolMetadata?.title || "Convert PDF to Word"}
+        description={toolMetadata?.description}
+        keywords={toolMetadata?.keywords}
+        canonical="/tools/pdf-to-word"
+        toolName={toolMetadata?.name}
+        toolCategory="Converter"
+        faqs={toolMetadata?.faqs}
+        breadcrumbs={breadcrumbs}
+      />
+      <section className="bg-gray-50 min-h-[90vh] flex items-center justify-center">
       <div className="max-w-4xl w-full px-4 text-center">
         {/* Heading */}
         <h1 className="text-4xl md:text-5xl font-extrabold text-purple-800">
@@ -127,5 +142,6 @@ export default function PdfToWord() {
         )}
       </div>
     </section>
+    </>
   );
 }

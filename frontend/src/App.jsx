@@ -6,6 +6,9 @@ import Footer from "./components/Footer";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import PdfSplit from "./pages/pdf/PdfSplit";
 import ConvertToPdf from "./pages/pdf/ConvertToPdf";
+import PdfEncrypt from "./pages/pdf/PdfEncrypt";
+import PdfDecrypt from "./pages/pdf/PdfDecrypt";
+import ImagesToPdf from "./pages/imageTool/ImagesToPdf";
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./components/Home"));
@@ -82,8 +85,8 @@ function App() {
             <Route path="/tools/compress-pdf" element={<CompressPdf />} />
             <Route path="/tools/split-pdf" element={<PdfSplit />} />
             <Route path="/tools/convert-any-to-pdf" element={<ConvertToPdf />} />
-            <Route path="/tools/protect-pdf" element={<UnderDevelopment />} />
-            <Route path="/tools/unlock-pdf" element={<UnderDevelopment />} />
+            <Route path="/tools/protect-pdf" element={<PdfEncrypt />} />
+            <Route path="/tools/unlock-pdf" element={<PdfDecrypt />} />
 
             {/* Image Tools */}
             <Route path="/tools/compress-image" element={<ImageCompressor />} />
@@ -92,6 +95,7 @@ function App() {
             <Route path="/tools/bg-remover" element={<BgRemover />} />
             <Route path="/tools/image-type-converter" element={<ImageTypeConverter />} />
             <Route path="/tools/qr-generator" element={<QrGenerator />} />
+            <Route path="/tools/images-to-pdf" element={<ImagesToPdf />} />
 
             {/* Video Tools */}
             <Route path="/tools/video-to-audio" element={<UnderDevelopment />} />

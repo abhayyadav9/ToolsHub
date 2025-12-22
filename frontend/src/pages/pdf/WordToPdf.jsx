@@ -9,8 +9,12 @@ import {
 } from "lucide-react";
 import { wordToPdf,BASE_URL } from "../../utils/api";
 import axios from "axios";
+import EnhancedSEO from "../../seo/EnhancedSEO";
+import { getToolMetadata, generateBreadcrumbs } from "../../config/seoConfig";
 
 export default function WordToPdf() {
+  const toolMetadata = getToolMetadata('word-to-pdf');
+  const breadcrumbs = generateBreadcrumbs('word-to-pdf');
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -90,7 +94,18 @@ const handleConvert = async () => {
 
 
   return (
-    <section className="bg-gray-50 min-h-[90vh] flex items-center justify-center">
+    <>
+      <EnhancedSEO
+        title={toolMetadata?.title || "Convert Word to PDF"}
+        description={toolMetadata?.description}
+        keywords={toolMetadata?.keywords}
+        canonical="/tools/word-to-pdf"
+        toolName={toolMetadata?.name}
+        toolCategory="Converter"
+        faqs={toolMetadata?.faqs}
+        breadcrumbs={breadcrumbs}
+      />
+      <section className="bg-gray-50 min-h-[90vh] flex items-center justify-center">
       <div className="max-w-4xl w-full px-4 text-center">
         {/* Heading */}
         <h1 className="text-4xl md:text-5xl font-extrabold text-purple-800">
@@ -170,5 +185,6 @@ const handleConvert = async () => {
         )}
       </div>
     </section>
+    </>
   );
 }

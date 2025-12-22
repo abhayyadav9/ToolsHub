@@ -8,8 +8,12 @@ import {
   Loader2,
 } from "lucide-react";
 import { compressPdf } from "../../utils/api";
+import EnhancedSEO from "../../seo/EnhancedSEO";
+import { getToolMetadata, generateBreadcrumbs } from "../../config/seoConfig";
 
 export default function CompressPdf() {
+  const toolMetadata = getToolMetadata('compress-pdf');
+  const breadcrumbs = generateBreadcrumbs('compress-pdf');
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -48,7 +52,18 @@ export default function CompressPdf() {
   };
 
   return (
-    <section className="bg-gray-50 min-h-[90vh] flex items-center justify-center">
+    <>
+      <EnhancedSEO
+        title={toolMetadata?.title || "Compress PDF"}
+        description={toolMetadata?.description}
+        keywords={toolMetadata?.keywords}
+        canonical="/tools/compress-pdf"
+        toolName={toolMetadata?.name}
+        toolCategory="Compressor"
+        faqs={toolMetadata?.faqs}
+        breadcrumbs={breadcrumbs}
+      />
+      <section className="bg-gray-50 min-h-[90vh] flex items-center justify-center">
       <div className="max-w-4xl w-full px-4 text-center">
         {/* Heading */}
         <h1 className="text-4xl md:text-5xl font-extrabold text-purple-800">
@@ -127,5 +142,6 @@ export default function CompressPdf() {
         )}
       </div>
     </section>
+    </>
   );
 }

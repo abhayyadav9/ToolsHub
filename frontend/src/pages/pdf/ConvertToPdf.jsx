@@ -9,8 +9,12 @@ import {
 } from "lucide-react";
 import axios from "axios";
 import { BASE_URL } from "../../utils/api";
+import EnhancedSEO from "../../seo/EnhancedSEO";
+import { getToolMetadata, generateBreadcrumbs } from "../../config/seoConfig";
 
 export default function ConvertToPdf() {
+  const toolMetadata = getToolMetadata('images-to-pdf');
+  const breadcrumbs = generateBreadcrumbs('images-to-pdf');
   const [files, setFiles] = useState([]);
   const [loading, setLoading] = useState(false);
 
@@ -100,7 +104,18 @@ export default function ConvertToPdf() {
 
   /* ---------------- UI ---------------- */
   return (
-    <section className="bg-gray-50 min-h-[90vh] flex items-center justify-center">
+    <>
+      <EnhancedSEO
+        title={toolMetadata?.title || "Convert to PDF"}
+        description={toolMetadata?.description}
+        keywords={toolMetadata?.keywords}
+        canonical="/tools/convert-to-pdf"
+        toolName={toolMetadata?.name}
+        toolCategory="Converter"
+        faqs={toolMetadata?.faqs}
+        breadcrumbs={breadcrumbs}
+      />
+      <section className="bg-gray-50 min-h-[90vh] flex items-center justify-center">
       <div className="max-w-4xl w-full px-4 text-center">
 
         {/* Heading */}
@@ -180,5 +195,6 @@ export default function ConvertToPdf() {
         )}
       </div>
     </section>
+    </>
   );
 }
