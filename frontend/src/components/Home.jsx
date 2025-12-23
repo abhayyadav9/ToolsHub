@@ -99,7 +99,7 @@ const Home = () => {
       name: 'PDF Converter',
       description: 'Convert PDF to Word, merge multiple PDFs, and compress PDF files',
       icon: FileText,
-      href: '/tools/pdf-converter',
+      href: '/tools/pdf-to-word',
       features: ['PDF to Word', 'Merge PDFs', 'Compress PDF'],
       color: 'bg-blue-500',
       gradient: 'from-blue-500 to-cyan-500'
@@ -108,7 +108,7 @@ const Home = () => {
       name: 'Image Compressor',
       description: 'Compress and optimize images without losing quality',
       icon: ImageIcon,
-      href: '/tools/image-compressor',
+      href: '/tools/compress-image',
       features: ['JPEG/PNG', 'Bulk compression', 'Quality control'],
       color: 'bg-green-500',
       gradient: 'from-green-500 to-emerald-500'

@@ -7,11 +7,14 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const tools = [
-    { name: 'PDF to Word', href: '/tools/pdf-converter', icon: FileText },
-    { name: 'Merge PDF', href: '/tools/pdf-converter', icon: FileText },
-    { name: 'Compress PDF', href: '/tools/pdf-converter', icon: FileText },
-    { name: 'Image Compressor', href: '/tools/image-compressor', icon: Image },
+    { name: 'PDF to Word', href: '/tools/pdf-to-word', icon: FileText },
+    { name: 'Merge PDF', href: '/tools/merge-pdf', icon: FileText },
+    { name: 'Compress PDF', href: '/tools/compress-pdf', icon: FileText },
+    { name: 'Image Compressor', href: '/tools/compress-image', icon: Image },
     { name: 'QR Generator', href: '/tools/qr-generator', icon: QrCode },
+    { name: 'Image to PDF', href: '/tools/image-to-pdf', icon: FileText },
+    { name: 'Word to PDF', href: '/tools/word-to-pdf', icon: FileText },
+    { name: 'Split PDF', href: '/tools/split-pdf', icon: FileText },
   ];
 
   const resources = [
