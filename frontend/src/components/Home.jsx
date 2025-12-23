@@ -408,7 +408,7 @@ const Home = () => {
             Join thousands of users who trust ToolsHub for their daily file processing needs.
           </motion.p>
           
-          <Link to="/tools/pdf-converter">
+          <Link to="/tools/compress-pdf">
             <motion.button 
               whileHover={{ scale: 1.05, boxShadow: "0px 10px 20px rgba(0,0,0,0.2)" }}
               whileTap={{ scale: 0.95 }}
