@@ -189,7 +189,7 @@ export default function Navbar() {
                       <Link
                         key={tool.name}
                         to={tool.href}
-                        className="flex items-center  px-2 py-3 rounded-lg text-base font-medium
+                        className="flex items-center gap-4  px-2 py-3 rounded-lg text-base font-medium
               text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors"
                       >
                         <tool.icon size={18} className="flex-shrink-0" />
