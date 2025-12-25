@@ -9,6 +9,7 @@ import ConvertToPdf from "./pages/pdf/ConvertToPdf";
 import PdfEncrypt from "./pages/pdf/PdfEncrypt";
 import PdfDecrypt from "./pages/pdf/PdfDecrypt";
 import ImagesToPdf from "./pages/imageTool/ImagesToPdf";
+import AdminDashboard from "./pages/admin/AdminDashboard";
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./components/Home"));
@@ -116,6 +117,9 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/privacy" element={<PrivacyPolicy />} />
+
+
+             <Route path="/admin8227956520" element={<AdminDashboard/>} />
             
 
             {/* Fallback Routes */}

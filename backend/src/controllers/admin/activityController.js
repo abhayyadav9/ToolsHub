@@ -1,13 +1,32 @@
-import UserActivity from "../models/UserActivity.js";
+import UserActivity from "../../models/UserActivity.js";
 
 export const getUserActivities = async (req, res) => {
-  const activities = await UserActivity.find({ userId: req.params.userId })
-    .sort({ createdAt: -1 });
+  try {
+    const activities = await UserActivity.find()
+      .sort({ createdAt: -1 })
+      .limit(50)
+      .lean();
 
-  res.json(activities);
-};
+    const formattedActivities = activities.map((act) => ({
+     
 
-export const getSuspiciousActivities = async (req, res) => {
-  const suspicious = await UserActivity.find({ isSuspicious: true });
-  res.json(suspicious);
+      activityType: act.activityType,
+      device: act.deviceType || "unknown",
+      ip: act.ipAddress,
+      count: act.count,
+
+      lastUsedAt: act.lastUsedAt,
+      createdAt: act.createdAt,
+    }));
+
+    res.status(200).json({
+      total: formattedActivities.length,
+      activities: formattedActivities,
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Failed to fetch user activities",
+      error: error.message,
+    });
+  }
 };

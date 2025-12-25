@@ -1,13 +1,8 @@
 import express from "express";
-import {
-  getUserActivities,
-  getSuspiciousActivities
-} from "../controllers/activityController.js";
-import { protect, adminOnly } from "../middlewares/authMiddleware.js";
+
+import {  getUserActivities } from "../../controllers/admin/activityController.js";
 
 const router = express.Router();
-
-router.get("/:userId", protect, getUserActivities);
-router.get("/security/suspicious", protect, adminOnly, getSuspiciousActivities);
+router.get("/user-data", getUserActivities );
 
 export default router;
