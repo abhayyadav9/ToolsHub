@@ -5,36 +5,40 @@ const userActivitySchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true
+      required: false, // 👈 allow guest
+    },
+    isGuest: {
+      type: Boolean,
+      default: false,
     },
 
     ipAddress: {
       type: String,
-      required: true
+      required: true,
     },
 
     userAgent: String,
 
     deviceType: {
       type: String,
-      enum: ["mobile", "desktop"]
+      enum: ["mobile", "desktop"],
     },
 
     activityType: {
       type: String,
       enum: ["login", "logout", "api_call", "failed_login"],
-      required: true
+      required: true,
     },
 
     count: {
       type: Number,
-      default: 1   // 👈 IMPORTANT
+      default: 1, // 👈 IMPORTANT
     },
 
     lastUsedAt: {
       type: Date,
-      default: Date.now
-    }
+      default: Date.now,
+    },
   },
   { timestamps: true }
 );

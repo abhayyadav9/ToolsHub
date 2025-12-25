@@ -15,7 +15,8 @@ app.use(express.json());
 app.use("/api/image", routes);
 app.use("/api/pdf", pdfRouter);
 
-app.get("/status", trackActivity("user-arrived-on page"),(req, res) => {
+app.get("/status", trackActivity("user-arrived-on-page"),(req, res) => {
+  console.log("startus")
   res.status(200).json({ status: "Server is up and running!" });
 });
 

@@ -1,41 +1,42 @@
 import UserActivity from "../models/UserActivity.js";
 
+const DEBUG_ACTIVITY = true;
+
 export const trackActivity = (activityType) => {
   return async (req, res, next) => {
     try {
-      if (!req.user) return next();
-
       const ipAddress =
-        req.headers["x-forwarded-for"]?.split(",")[0] || req.ip;
+        req.headers["x-forwarded-for"]?.split(",")[0] ||
+        req.ip ||
+        "unknown";
 
       const userAgent = req.headers["user-agent"] || "unknown";
 
-      const deviceType = userAgent.includes("Mobile")
+      const deviceType = /mobile/i.test(userAgent)
         ? "mobile"
         : "desktop";
 
-      // 🔍 Check if same user + same IP already exists
-      const existingActivity = await UserActivity.findOne({
-        userId: req.user.id,
-        ipAddress,
-        activityType
-      });
+      const userId = req.user?.id || null;
+      const isGuest = !req.user;
 
-      if (existingActivity) {
-        // ✅ Update instead of creating new doc
-        existingActivity.count += 1;
-        existingActivity.lastUsedAt = new Date();
-        await existingActivity.save();
-      } else {
-        // 🆕 Create new document only once
-        await UserActivity.create({
-          userId: req.user.id,
+      await UserActivity.findOneAndUpdate(
+        {
+          userId,
           ipAddress,
-          userAgent,
-          deviceType,
-          activityType
-        });
-      }
+          activityType,
+          isGuest
+        },
+        {
+          $inc: { count: 1 },
+          $set: {
+            lastUsedAt: new Date(),
+            userAgent,
+            deviceType
+          }
+        },
+        { upsert: true }
+      );
+
     } catch (err) {
       console.error("Activity tracking failed:", err.message);
     }
