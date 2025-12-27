@@ -11,6 +11,7 @@ import PdfDecrypt from "./pages/pdf/PdfDecrypt";
 import ImagesToPdf from "./pages/imageTool/ImagesToPdf";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import UrlShortener from "./pages/otherTools/UrlSortener";
+import Redirector from "./utils/Redirector";
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./components/Home"));
@@ -111,6 +112,8 @@ function App() {
 
            { /* other tools */}
             <Route path="/tools/url-shortener" element={<UrlShortener />} />
+            <Route path="/:code" element={<Redirector />} />
+
 
             {/* Document Tools */}
             <Route path="/tools/excel-to-pdf" element={<UnderDevelopment />} />
