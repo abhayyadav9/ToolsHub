@@ -41,7 +41,7 @@ export const createShortUrl = async (req, res) => {
     const domain = extractDomain(originalUrl);
 
     res.status(201).json({
-      shortUrl: `https://toolshub.me/url/${shortCode}`,   // real link
+      shortUrl: `https://toolshub.me/${shortCode}`,   // real link
       displayUrl: `${domain}/${shortCode}`,          // cosmetic
       code: shortCode,
     });
