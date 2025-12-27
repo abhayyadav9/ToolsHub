@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/:code",
-      "destination": "https://toolshub-kg7q.onrender.com/:code"
+      "destination": "https://toolshub-kg7q.onrender.com/url/:code"
     },
     {
       "source": "/(.*)",
