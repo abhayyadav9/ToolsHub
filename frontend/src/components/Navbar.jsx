@@ -17,6 +17,7 @@ import {
   QrCodeIcon,
   ShieldCheck,
   UnlockIcon,
+  Link2Icon,
 } from "lucide-react";
 
 import image2 from "../assets/image2.png";
@@ -79,7 +80,7 @@ export default function Navbar() {
       color: "text-green-500",
       icon: FilePlus,
       items: [
-        { name: "URL Shortener", href: "/tools/url-shortener", icon: Link },
+        { name: "URL Shortener", href: "/tools/url-shortener", icon: Link2Icon },
        
       ],
     },
