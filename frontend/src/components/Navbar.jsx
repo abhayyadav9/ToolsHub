@@ -18,8 +18,7 @@ import {
   ShieldCheck,
   UnlockIcon,
 } from "lucide-react";
-import image1 from "../assets/image1.png";
-import image from "../assets/image.png";
+
 import image2 from "../assets/image2.png";
 
 export default function Navbar() {
@@ -74,24 +73,28 @@ export default function Navbar() {
       icon: ImageIcon,
       items: imageTools,
     },
+
+       {
+      title: "Other Tools",
+      color: "text-green-500",
+      icon: FilePlus,
+      items: [
+        { name: "URL Shortener", href: "/tools/url-shortener", icon: Link },
+       
+      ],
+    },
     {
-      title: "Video Tools",
+      title: "Video & Audio Tools",
       color: "text-purple-500",
       icon: Video,
       items: [
         { name: "Compress Video", href: "#", icon: Video },
         { name: "Trim Video", href: "#", icon: Video },
-      ],
-    },
-    {
-      title: "Audio Tools",
-      color: "text-green-500",
-      icon: Music,
-      items: [
-        { name: "Compress Audio", href: "#", icon: Music },
+         { name: "Compress Audio", href: "#", icon: Music },
         { name: "Voice Recorder", href: "#", icon: Music },
       ],
     },
+ 
   ];
 
   /* ================= HOVER HANDLERS ================= */

@@ -5,6 +5,16 @@ import redis from "../config/redis.js";
 /**
  * CREATE SHORT URL
  */
+function extractDomain(url) {
+  try {
+    const parsed = new URL(url);
+    return parsed.hostname;
+  } catch {
+    return null;
+  }
+}
+
+
 export const createShortUrl = async (req, res) => {
   try {
     const { originalUrl } = req.body;
@@ -21,24 +31,25 @@ export const createShortUrl = async (req, res) => {
       exists = await ShortUrl.findOne({ shortCode });
     }
 
-    // 1️⃣ Save to Mongo FIRST (source of truth)
-    const url = await ShortUrl.create({
+    await ShortUrl.create({
       originalUrl,
       shortCode,
     });
 
-    // 2️⃣ Save to Redis HASH
-   await redis.hSet("short_urls", shortCode, originalUrl);
+    await redis.hSet("short_urls", shortCode, originalUrl);
 
+    const domain = extractDomain(originalUrl);
 
     res.status(201).json({
-      shortUrl: `${req.protocol}://${req.get("host")}/${shortCode}`,
+      shortUrl: `https://toolshub.me/${shortCode}`,   // real link
+      displayUrl: `${domain}/${shortCode}`,          // cosmetic
       code: shortCode,
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 };
+
 
 /**
  * REDIRECT SHORT URL

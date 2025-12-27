@@ -10,6 +10,7 @@ import PdfEncrypt from "./pages/pdf/PdfEncrypt";
 import PdfDecrypt from "./pages/pdf/PdfDecrypt";
 import ImagesToPdf from "./pages/imageTool/ImagesToPdf";
 import AdminDashboard from "./pages/admin/AdminDashboard";
+import UrlShortener from "./pages/otherTools/UrlSortener";
 
 // Lazy load components for better performance
 const Home = lazy(() => import("./components/Home"));
@@ -107,11 +108,17 @@ function App() {
             <Route path="/tools/mp3-converter" element={<UnderDevelopment />} />
             <Route path="/tools/audio-compressor" element={<UnderDevelopment />} />
 
+
+           { /* other tools */}
+            <Route path="/tools/url-shortener" element={<UrlShortener />} />
+
             {/* Document Tools */}
             <Route path="/tools/excel-to-pdf" element={<UnderDevelopment />} />
             <Route path="/tools/pdf-to-excel" element={<UnderDevelopment />} />
             <Route path="/tools/txt-to-pdf" element={<UnderDevelopment />} />
             <Route path="/tools/pdf-to-txt" element={<UnderDevelopment />} />
+
+
 
             {/* Static Pages */}
             <Route path="/about" element={<About />} />
