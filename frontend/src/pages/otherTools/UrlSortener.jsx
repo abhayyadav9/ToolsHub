@@ -10,9 +10,13 @@ import {
   AlertCircle,
   Globe
 } from "lucide-react";
+import EnhancedSEO from "../../seo/EnhancedSEO";
+import { getToolMetadata, generateBreadcrumbs } from "../../config/seoConfig";
 import { NODE_BASE_URL } from "../../utils/nodeApi";
 
 export default function UrlShortener() {
+  const toolMetadata = getToolMetadata('url-shortener');
+  const breadcrumbs = generateBreadcrumbs('url-shortener');
   const [originalUrl, setOriginalUrl] = useState("");
   const [shortUrl, setShortUrl] = useState("");
   const [loading, setLoading] = useState(false);
@@ -76,7 +80,19 @@ export default function UrlShortener() {
   };
 
   return (
-    <div className="min-h-[60vh] flex items-center justify-center bg-red-50/50 p-4">
+    <>
+      <EnhancedSEO
+        title={toolMetadata?.title || "URL Shortener"}
+        description={toolMetadata?.description}
+        keywords={toolMetadata?.keywords}
+        canonical="/tools/url-shortener"
+        toolName={toolMetadata?.name}
+        toolCategory="URL Utility"
+        faqs={toolMetadata?.faqs}
+        breadcrumbs={breadcrumbs}
+      />
+
+      <div className="min-h-[60vh] flex items-center justify-center bg-red-50/50 p-4">
       <div className="max-w-xl w-full">
         
         {/* Main Card */}
@@ -214,5 +230,6 @@ export default function UrlShortener() {
         )}
       </div>
     </div>
+    </>
   );
 }

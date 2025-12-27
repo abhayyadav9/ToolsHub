@@ -788,6 +788,41 @@ export const toolsMetadata = {
       'Copy-friendly',
       'No limits'
     ]
+  },
+
+  // OTHER & UTILITY TOOLS
+  'url-shortener': {
+    name: 'URL Shortener',
+    title: 'Free URL Shortener - Create Short Links Instantly',
+    description: 'Shorten long URLs into clean, shareable links with one click. Secure redirects, auto-expiry, and copy-to-clipboard for fast sharing.',
+    keywords: ['url shortener', 'link shortener', 'short url generator', 'free url shortener', 'shorten link online'],
+    longTailKeywords: ['how to shorten a link', 'create short url free', 'best url shortener without login'],
+    category: 'document',
+    faqs: [
+      {
+        question: 'How do I shorten a link?',
+        answer: 'Paste any valid URL, click Shorten URL, and you will receive a share-ready short link instantly.'
+      },
+      {
+        question: 'Do short links expire?',
+        answer: 'Yes. For security, short links currently expire after 24 hours to prevent stale redirects.'
+      },
+      {
+        question: 'Is the URL shortener free?',
+        answer: 'Yes, creating and sharing short links is completely free with no sign-up required.'
+      },
+      {
+        question: 'Is it safe to use?',
+        answer: 'Links are validated and redirects are HTTPS-only to keep sharing secure.'
+      }
+    ],
+    features: [
+      'One-click short links',
+      'Copy-to-clipboard button',
+      '24-hour auto-expiry for security',
+      'HTTPS redirects',
+      'No login required'
+    ]
   }
 };
 
